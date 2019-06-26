@@ -23,7 +23,9 @@ class CreateProductsTable extends Migration
             $table->float('price_und');
             $table->integer('stock_min');
             $table->integer('stock_max');
-
+            $table->unsignedBigInteger('user_id');
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
