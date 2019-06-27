@@ -16,11 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('characteriscs');
+            $table->string('characteriscs')->nullable();
             $table->integer('existence');
-            $table->enum('unity',['Caja','Bulto','Resma','Paquete','kilo','Barril','Litros','Otro']);
-            $table->float('price_ind');
-            $table->float('price_und');
+            $table->enum('unity',['Caja','Bulto','Resma','Paquete','kilo','Barril','Litros','Individual']);
+            $table->float('price');
             $table->integer('stock_min');
             $table->integer('stock_max');
             $table->unsignedBigInteger('user_id');
