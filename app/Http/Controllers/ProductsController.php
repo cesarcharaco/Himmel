@@ -40,6 +40,7 @@ class ProductsController extends Controller
         $buscar=Products::where('name',$request->name)->where('unity',$request->unity)->where('user_id',\Auth::getUser()->id)->first();
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un producto registrado con este nombre y unidad de medida!')->warning()->important();
+            return redirect()->to('products/create');
         } else {
         
                 $product=new Products();
@@ -55,6 +56,7 @@ class ProductsController extends Controller
                 $product->save();
 
                 flash('<i class="icon-circle-check"></i> Producto registrado con satisfactoriamente!')->success()->important();
+                return redirect()->to('products/create');
             }
     }
 
