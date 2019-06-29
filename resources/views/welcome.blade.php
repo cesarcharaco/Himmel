@@ -42,7 +42,8 @@
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
                     <div class="text-center p-t-20 p-b-20">
-                        <span class="db"><img src="{{ asset('matrix/assets/images/logo.png') }}" alt="logo" /></span>
+                        {{-- <span class="db"><img src="{{ asset('matrix/assets/images/logo.png') }}" alt="logo" /></span> --}}
+                       <font color="#FFFFFF"> <h1>HIMMEL</h1> </font>
                     </div>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" action="{{ route('login') }}" method="POST">

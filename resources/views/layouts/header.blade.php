@@ -11,14 +11,15 @@
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('matrix/assets/images/logo-icon.png') }}" alt="homepage" class="light-logo" />
+                            {{-- <img src="{{ asset('matrix/assets/images/logo-icon.png') }}" alt="homepage" class="light-logo" /> --}}
+                            <font color="#FFFFFF"><h1>HIMMEL</h1></font>
                            
                         </b>
                         <!--End Logo icon -->
                          <!-- Logo text -->
                         <span class="logo-text">
                              <!-- dark Logo text -->
-                             <img src="{{ asset('matrix/assets/images/logo-text.png') }}" alt="homepage" class="light-logo" />
+                             {{-- <img src="{{ asset('matrix/assets/images/logo-text.png') }}" alt="homepage" class="light-logo" /> --}}
                             
                         </span>
                         <!-- Logo icon -->
@@ -127,7 +128,7 @@
                                                     <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
                                                     <div class="m-l-10">
                                                         <h5 class="m-b-0">Pavan kumar</h5> 
-                                                        <span class="mail-desc">Just see the my admin!</span> 
+                                                        <span class="mail-desc">Sólo ver mi Admin!</span> 
                                                     </div>
                                                 </div>
                                             </a>
@@ -137,7 +138,7 @@
                                                     <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
                                                     <div class="m-l-10">
                                                         <h5 class="m-b-0">Luanch Admin</h5> 
-                                                        <span class="mail-desc">Just see the my new admin!</span> 
+                                                        <span class="mail-desc">Sólo ver mi Admin!</span> 
                                                     </div>
                                                 </div>
                                             </a>
