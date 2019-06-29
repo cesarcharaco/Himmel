@@ -16,6 +16,7 @@ class ClientsTableSeeder extends Seeder
         	'letter' => 'P',
         	'rif' => 12323323,
         	'address' => 'Sector Centro, calle 2',
+            'phone' => '2121223232',
         	'email' => 'josequintero@gmail.com',
         	'user_id' => 2
         ]);
@@ -24,6 +25,7 @@ class ClientsTableSeeder extends Seeder
         	'letter' => 'V',
         	'rif' => 12323389,
         	'address' => 'Sector Centro, calle 5',
+            'phone' => '2121223232',
         	'email' => 'carminperez@gmail.com',
         	'user_id' => 2
         ]);
@@ -40,6 +42,7 @@ class ClientsTableSeeder extends Seeder
         	'letter' => 'P',
         	'rif' => 12323399,
         	'address' => 'Sector Oeste, calle 1',
+            'phone' => '2121223232',
         	'email' => 'marcosblancos@gmail.com',
         	'user_id' => 3
         ]);

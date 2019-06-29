@@ -27,7 +27,6 @@ class ClientsRequest extends FormRequest
             'name' => 'required',
             'letter' => 'required',
             'rif' => 'required|numeric',
-            'address' => 'required',
             'email' => 'required|email'
         ];
     }
@@ -39,7 +38,6 @@ class ClientsRequest extends FormRequest
             'letter.required' => 'Debe seleccionar un literal del RIF',
             'rif.required' => 'El RIF no debe estar vacío',
             'rif.numeric' => 'El RIF sólo deb contener números',
-            'address.required' => 'Debe Ingresar la dirección del cliente',
             'email.required' => 'El Correo no debe estar vacío',
             'email.email' => 'El Correo debe tener el formato correcto'
         ];

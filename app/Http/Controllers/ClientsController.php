@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Clients;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClientsRequest;
+use App\User;
 class ClientsController extends Controller
 {
     /**
@@ -27,7 +28,14 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        return view('admin.clients.create');
+        if (\Auth::getUser()->user_type=="Admin") {
+            $users=User::where('user_type','<>','Admin')->get();
+            return view('admin.clients.create',compact('users'));    
+        } else {
+            return view('admin.clients.create');
+        }
+        
+        
     }
 
     /**
@@ -53,10 +61,17 @@ class ClientsController extends Controller
                 $client->rif=$request->rif;
                 $client->address=$request->address;
                 $client->phone=$request->phone;
-                $client->user_id=\Auth::getUser()->id;
+                $client->email=$request->email;
+                if (\Auth::getUser()->user_type=="Admin") {
+                    $client->user_id=$request->user_id;
+                } else {
+                    $client->user_id=\Auth::getUser()->id;
+                }
+                
                 $client->save();
 
                 flash('<i class="icon-circle-check"></i> Cliente registrado con satisfactoriamente!')->success()->important();
+                return redirect()->to('clients');
             }
             
         }

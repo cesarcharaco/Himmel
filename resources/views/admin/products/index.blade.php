@@ -67,6 +67,7 @@
                                     <th>Precio</th>
                                     <th>Stock Min</th>
                                     <th>Stock Max</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </tfoot>
                         </table>

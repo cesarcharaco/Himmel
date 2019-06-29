@@ -8,7 +8,7 @@ class Clients extends Model
 {
     protected $table='clients';
 
-    protected $fillable=['name','letter','rif','address','email','user_id'];
+    protected $fillable=['name','letter','rif','address','phone','email','user_id'];
 
     public function quotations()
     {

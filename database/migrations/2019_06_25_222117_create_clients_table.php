@@ -18,7 +18,8 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->string('letter');
             $table->integer('rif');
-            $table->text('address');
+            $table->text('address')->nullable();
+            $table->text('phone')->nullable();
             $table->string('email');
             $table->unsignedBigInteger('user_id');
 
