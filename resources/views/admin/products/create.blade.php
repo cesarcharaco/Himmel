@@ -56,6 +56,8 @@
                                     <optgroup label="Seleccione una unidad">
                                         <option value="Caja">Caja</option>
                                         <option value="Bulto">Bulto</option>
+                                        <option value="Saco">Saco</option>
+                                        <option value="M3">M3</option>
                                         <option value="Resma">Resma</option>
                                         <option value="Paquete">Paquete</option>
                                         <option value="kilo">kilo</option>
@@ -80,6 +82,16 @@
                                 <label for="stock_max">Stock máximo:</label>
                                 <input type="text" class="form-control" placeholder="Stock máximo" name="stock_max" id="stock_max" value="{{ old('stock_max') }}">
                             </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-md-3 m-t-15">Proveedores</label>
+                                    <div class="col-md-12">
+                                        <select name="provider_id[]" id="provider_id" class="select2 form-control m-t-15" multiple="multiple" style="height: 36px;width: 100%;">
+                                            @foreach($providers as $key)
+                                                <option value="{{ $key->id }}">{{ $key->business_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                         </div>
                     </div>
                     <div class="border-top">

@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('characteriscs')->nullable();
             $table->integer('existence');
-            $table->enum('unity',['Caja','Bulto','Resma','Paquete','kilo','Barril','Litros','Individual']);
+            $table->enum('unity',['Caja','Bulto','Saco','M3','Resma','Paquete','kilo','Barril','Litros','Individual']);
             $table->float('price');
             $table->integer('stock_min');
             $table->integer('stock_max');

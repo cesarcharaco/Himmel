@@ -28,38 +28,45 @@
 		<div class="col-12">
 			<div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Basic Datatable <a href="{{ route('products.create') }}" style="color: white;" class="btn btn-info align-right">Registrar producto</a></h5>
+                    <h5 class="card-title"><a href="{{ route('products.create') }}" style="color: white;" class="btn btn-info align-right">Registrar producto</a></h5>
 
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Nombre</th>
+                                    <th>Características</th>
+                                    <th>Existencia</th>
+                                    <th>Unidad de Medida</th>
+                                    <th>Precio</th>
+                                    <th>Stock Min</th>
+                                    <th>Stock Max</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($products as $key)
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
+                                    <td>{{ $key->name }}</td>
+                                    <td>{{ $key->characteriscs }}</td>
+                                    <td>{{ $key->existence }}</td>
+                                    <td>{{ $key->unity }}</td>
+                                    <td>{{ $key->price }}</td>
+                                    <td>{{ $key->stock_min }}</td>
+                                    <td>{{ $key->stock_max }}</td>
+                                    <td></td>
                                 </tr>
+                                @endforeach 
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Nombre</th>
+                                    <th>Características</th>
+                                    <th>Existencia</th>
+                                    <th>Unidad de Medida</th>
+                                    <th>Precio</th>
+                                    <th>Stock Min</th>
+                                    <th>Stock Max</th>
                                 </tr>
                             </tfoot>
                         </table>

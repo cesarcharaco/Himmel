@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Products;
+use App\Providers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductsRequest;
 class ProductsController extends Controller
@@ -16,6 +17,7 @@ class ProductsController extends Controller
     {
         $products= Products::all();
         $cont=count($products);
+
         return view('admin.products.index',compact('products','cont'));
     }
 
@@ -26,7 +28,15 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        if (\Auth::getUser()->user_type=="Admin") {
+            $providers=Providers::all();
+        } else {
+            $providers=Providers::where('user_id',\Auth::getUser()->id)->get();
+        }
+        
+        
+        //dd($providers);
+        return view('admin.products.create',compact('providers'));
     }
 
     /**
@@ -54,6 +64,14 @@ class ProductsController extends Controller
                 $product->stock_max=$request->stock_max;
                 $product->user_id=\Auth::getUser()->id;
                 $product->save();
+
+                $product2=Products::find($product->id);
+                for ($i=0; $i < count($request->provider_id) ; $i++) { 
+                    $product2->providers->pivot->porvider_id=$request->provider_id[$i];
+                    $product2->providers->pivot->product_id=$product->id;
+                    
+                }
+                
 
                 flash('<i class="icon-circle-check"></i> Producto registrado con satisfactoriamente!')->success()->important();
                 return redirect()->to('products/create');

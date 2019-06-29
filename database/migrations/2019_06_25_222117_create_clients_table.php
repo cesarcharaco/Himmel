@@ -20,8 +20,9 @@ class CreateClientsTable extends Migration
             $table->integer('rif');
             $table->text('address');
             $table->string('email');
-            
+            $table->unsignedBigInteger('user_id');
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

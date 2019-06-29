@@ -26,11 +26,6 @@ class Products extends Model
         return $this->belongsToMany('App\RequestsOrder','requests_has_products','product_id','request_id')->withPivot('amount');
     }
 
-    public function products()
-    {
-        return $this->belongsToMany('App\Quotations','quotations_has_products','product_id','quotation_id')->withPivot('amount');
-    }
-
     public function providers()
     {
         return $this->belongsToMany('App\Providers','providers_has_products','product_id','provider_id')->withPivot('cost');
