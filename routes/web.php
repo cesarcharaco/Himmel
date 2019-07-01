@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('clients/{user_id}/search','QuotationsController@search_clients');
 	Route::get('products/{user_id}/search','QuotationsController@search_products');
 	Route::get('products/{product_id}/add','QuotationsController@products_add');
-	Route::get('products/{product_id}/delete','QuotationsController@product_delete');
+	
 
 });
 

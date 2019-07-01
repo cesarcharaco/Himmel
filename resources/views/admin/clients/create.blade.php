@@ -64,7 +64,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <label for="cedula">Teléfono</label>
-                                <input type="text" class="form-control" placeholder="Ej: 52223232323" name="phone" id="phone" value="{{ old('phone') }}">
+                                <input type="text" class="form-control international-inputmask" placeholder="Ej: 52223232323" name="phone" id="phone" value="{{ old('phone') }}">
                             </div>
                         </div>
                         <div class="row mb-3">

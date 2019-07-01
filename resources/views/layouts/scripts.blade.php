@@ -72,8 +72,8 @@
 
         });
         /*datwpicker*/
-        /*jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
+        /*$('.mydatepicker').datepicker();
+        $('#datepicker-autoclose').datepicker({
             autoclose: true,
             todayHighlight: true
         });

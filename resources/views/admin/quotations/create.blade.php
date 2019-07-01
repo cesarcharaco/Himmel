@@ -42,7 +42,7 @@
 	<div class="row">
 		<div class="col-12">
             <div class="card">
-                <form class="form-horizontal" method="POST" action="{{ route('quotations.store') }}">
+                <form class="form-horizontal" method="POST" action="{{ route('quotations.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <h4 class="card-title">Registrar Cotización <br> <p>Todos los campos son requeridos (<b style="color:red;">*</b>)</p></h4>
@@ -105,35 +105,96 @@
 			                                    <th>Característica</th>
 			                                    <th>Unidad</th>
 			                                    <th>Precio</th>
+			                                    <th>Cantidad</th>
 			                                    <th>Acciones</th>
 			                                </tr>
 			                            </thead>
 			                            <tbody>
-			                            	@foreach($car as $key)
-			                                <tr>
-			                                	<td>{{ $key->name }}</td>
-			                                	<td>{{ $key->characteriscs }}</td>
-			                                	<td>{{ $key->unity }}</td>
-			                                	<td>{{ $key->price }}</td>
-			                                	<td><button type="button" id="product_delete" class="btn btn-danger btn-sm"><i class="m-r-6 mdi mdi-delete"></i><code class="m-r-10"></code></button></td>
-			                                </tr>
-			                                @endforeach
+			                            	
 			                            </tbody>
+			                            <tfoot>
+			                            	<tr><th colspan="4"></th><th>Total: <span id="total"></span></th><th></th></tr>
+			                            </tfoot>
 			                        </table>
                     			</div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-4">
-                                <label for="price">Dirección:</label>
-                                <input type="text" class="form-control" placeholder="Ej: Av. Los Ríos" name="address" id="address" value="{{ old('address') }}">
+                                <label for="Comentarios">Comentarios:</label>
+                                <input type="text" class="form-control" placeholder="Ej: Todo Bien" name="comments" id="comments" value="{{ old('comments') }}">
                             </div>
                             <div class="col-lg-4">
-                                <label for="email"> <b style="color:red;">*</b>Correo:</label>
-                                <input type="email" class="form-control" placeholder="Ej: example@gmail.com" name="email" id="email" value="{{ old('email') }}">
+                                <label for="Descuento"> Descuento:</label>
+                                <input type="number" class="form-control" name="discount" id="discount" value="{{ old('discount') }}">
                             </div>
                         </div>
-                        
+                        <div class="row mb-3">
+                            <div class="col-lg-8">
+                                <label for="Comentarios">Archivos:</label>
+                                <input type="file" multiple="multiple" class="form-control" placeholder="Ej: Todo Bien" name="files[]" id="files" >
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                        	<div class="col-lg-4">
+                        	<label for="Comentarios"><b>Condiciones Generales:</b></label>	
+                        	</div>
+                        </div>
+                        <div class="row mb-3">
+                        	
+                            <div class="col-lg-4">
+                                <label for="Validez"><b style="color:red;">*</b>Validez de Oferta:</label>
+                                <input type="date"  value="{{$hoy}}" min="{{$hoy}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="offer_validity" id="offer_validity">
+                            </div>
+                            <div class="col-lg-4">
+                                <label for="Lugar"><b style="color:red;">*</b> Lugar de entrega:</label>
+                                <input type="text" class="form-control" name="place_delivery" id="place_delivery" value="{{ old('place_delivery') }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                        	
+                            <div class="col-lg-4">
+                                <label for="plazo"><b style="color:red;">*</b>Plazo de Entrega:</label>
+                                <input type="date"  value="{{$hoy}}" min="{{$hoy}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="offer_validity" id="offer_validity" value="{{ old('offer_validity') }}">
+                            </div>
+                            <div class="col-lg-2">
+                                <label for="Lugar"><b style="color:red;">*</b> Forma de Pago:</label>
+                                <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="way_pay" name="way_pay" checked="checked" value="Transferencia">
+                                <label class="custom-control-label" for="customControlValidation1">Transferencia</label>
+                            	</div>
+                             <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="way_pay1" name="way_pay" value="Efectivo">
+                                <label class="custom-control-label" for="customControlValidation2">Efectivo</label>
+                            </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label for="Moneda"><b style="color:red;">*</b>Moneda</label>
+                                <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="coin" id="coin">
+                                        <option value="Dolar USD">Dolar USD</option>
+                                        <option value="Pesos">Pesos</option>
+                                        <option value="Soles">Soles</option>
+                                        <option value="Bitcoin">Bitcoin</option>
+                                        <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                        	<div class="col-lg-4">
+                        	<label for="Comentarios"><b>Adiciones al Correo:</b></label>	
+                        	</div>
+                        </div>
+                        <div class="row mb-3">
+                        	
+                            <div class="col-lg-4">
+                                <label for="adiciones">Dirigido a:</label>
+                                <input type="text"  value="{{old('address_to')}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="address_to" id="address_to">
+                            </div>
+                            <div class="col-lg-4">
+                                <label for="Comentarios Correo">Comentarios del Correo:</label>
+                                <textarea class="form-control" name="email_comments" id="email_comments"></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="border-top">
                         <div class="card-body">
@@ -151,6 +212,7 @@
 <script type="text/javascript">
 
 $(document).ready( function(){
+	var LineNum=0;
 	$("#user_id").on("change", function (event) {
 	    var id = event.target.value;
 
@@ -179,7 +241,7 @@ $(document).ready( function(){
 	    
 
 	       $("#products_select").empty();
-	       $("#products_select").append('<option value="" selected disabled> Seleccione un Producto</option>');
+	       $("#products_select").append('<option value="0" selected disabled> Seleccione un Producto</option>');
 	        
 	        if(data.length > 0){
 
@@ -207,12 +269,13 @@ $(document).ready( function(){
 	       
 	        
 	        if(data.length > 0){
-
+	        	LineNum++;
 	            for (var i = 0; i < data.length ; i++) 
 	            {
+	            	//$('#products_select').children('option[value="'+id+'"]').attr('disabled',true);
 	             	//$("#lista_productos").append('<tr>'); 
 	                //$("#products").removeAttr('disabled');
-	                $("#lista_productos").append('<tr><td><input type="hidden" name="product_id[]" id="product_id" value="'+ data[i].id + '">' + data[i].name +'</td><td>'+ data[i].characteriscs +'</td><td>' + data[i].unity +'</td><td>'+ data[i].price +'</td><td><button type="button" value="'+ data[i].id + '" id="product_delete" class="btn btn-danger btn-sm"><i class="m-r-10 mdi mdi-delete"><code class="m-r-10"></code></button></td></tr>');
+	                $("#lista_productos").append('<tr id="Line'+LineNum+'"><td><input type="hidden" name="product_id[]" id="product_id" value="'+ data[i].id + '">' + data[i].name +'</td><td>'+ data[i].characteriscs +'</td><td>' + data[i].unity +'</td><td>'+ data[i].price +'</td><td><input type="number" name="cantidad[]" id="cantidad required="required"></td><td><button type="button" onclick="EliminarLinea('+LineNum+','+data[i].id+');"  class="btn btn-danger btn-sm"><i class="m-r-10 mdi mdi-delete"><code class="m-r-10"></code></button></td></tr>');
 	                //$("#lista_productos").append('</tr>');
 	            }
 
@@ -224,33 +287,15 @@ $(document).ready( function(){
 		});
 	});
 
-	$("#product_delete").on("click", function (event) {
-	    var id = event.target.value;
-
-
-	    $.get("/products/"+id+"/delete",function (data) {
-	    
-
-	       $("#lista_productos").empty();
-	       
-	        
-	        if(data.length > 0){
-
-	            for (var i = 0; i < data.length ; i++) 
-	            {
-	             	//$("#lista_productos").append('<tr>'); 
-	                //$("#products").removeAttr('disabled');
-	                $("#lista_productos").append('<tr><td><input type="hidden" name="product_id[]" id="product_id" value="'+ data[i].id + '">' + data[i].name +'</td><td>'+ data[i].characteriscs +'</td><td>' + data[i].unity +'</td><td>'+ data[i].price +'</td><td></td></tr>');
-	                //$("#lista_productos").append('</tr>');
-	            }
-
-	        }else{
-	            
-	            //$("#client_id").attr('disabled', false);
-
-	        }
-		});
-	});
+	
 });
+function EliminarLinea(rnum,id_opcion) {
+	var next=id_opcion-1;
+	//console.log(id_opcion+" siguiente "+next);
+	/*$('#products_select').children('option[value="'+next+'"]').attr('selected',true);
+	$('#products_select').children('option[value="'+id_opcion+'"]').removeAttr('disabled');*/
+	$('#Line'+rnum).remove();
+        return true;
+}
 </script>
 @endsection
