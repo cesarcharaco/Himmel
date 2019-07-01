@@ -19,9 +19,9 @@ class CreateProvidersTable extends Migration
             $table->string('letter');
             $table->integer('rif');
             $table->string('salesman');
-            $table->text('address');
+            $table->text('address')->nullable();
             $table->string('email');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->unsignedBigInteger('user_id');
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

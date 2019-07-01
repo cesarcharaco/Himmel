@@ -126,9 +126,17 @@ class ClientsController extends Controller
                 $client->letter=$request->rif;
                 $client->address=$request->address;
                 $client->phone=$request->phone;
+                $client->email=$request->email;
+                if (\Auth::getUser()->user_type=="Admin") {
+                    $client->user_id=$request->user_id;
+                } else {
+                    $client->user_id=\Auth::getUser()->id;
+                }
+                
                 $client->save();
 
                 flash('<i class="icon-circle-check"></i> Cliente actualizado con satisfactoriamente!')->success()->important();
+                return redirect()->to('clients');
             }
             
         }

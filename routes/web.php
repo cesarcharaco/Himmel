@@ -22,5 +22,14 @@ Route::middleware('auth')->group(function () {
 	Route::resource('products','ProductsController');
 	Route::resource('clients','ClientsController');
 	Route::resource('providers','ProvidersController');
+	Route::resource('requestsorders','RequestsOrderController');
+	Route::resource('purchaseorders','PurchaseOrderController');
+
+	Route::resource('quotations','QuotationsController');
+	Route::get('clients/{user_id}/search','QuotationsController@search_clients');
+	Route::get('products/{user_id}/search','QuotationsController@search_products');
+	Route::get('products/{product_id}/add','QuotationsController@products_add');
+	Route::get('products/{product_id}/delete','QuotationsController@product_delete');
+
 });
 

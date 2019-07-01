@@ -28,9 +28,7 @@ class ProvidersRequest extends FormRequest
             'letter' => 'required',
             'rif' => 'required|numeric',
             'salesman' => 'required',
-            'address' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required'
+            'email' => 'required|email'
         ];
     }
 
@@ -42,10 +40,8 @@ class ProvidersRequest extends FormRequest
             'rif.required' => 'El RIF es obligatorio',
             'rif.numeric' => 'El RIF sólo debe contener números',
             'salesman.required' => 'El Nombre del representante es obligatorio',
-            'address.required' => 'La Dirección es obligatoria',
             'email.required' => 'El Correo es obligatorio',
-            'email.email' => 'El Correo debe tener un formato válido',
-            'phone.required' => 'El Teléfono es obligatorio'
+            'email.email' => 'El Correo debe tener un formato válido'
         ];
     }
 }

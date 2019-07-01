@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Providers;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProvidersRequest;
 class ProvidersController extends Controller
@@ -27,7 +28,12 @@ class ProvidersController extends Controller
      */
     public function create()
     {
-        return view('admin.providers.create');
+        if (\Auth::getUser()->user_type=="Admin") {
+            $users=User::where('user_type','<>','Admin')->get();
+            return view('admin.providers.create',compact('users'));    
+        } else {
+            return view('admin.providers.create');
+        }
     }
 
     /**
@@ -38,15 +44,21 @@ class ProvidersController extends Controller
      */
     public function store(ProvidersRequest $request)
     {
-        $buscar=Providers::where('email',$request->email)->where('user_id',\Auth::getUser()->id)->first();
+        if (\Auth::getUser()->user_type=="Admin") {
+            $user_id=$request->user_id;
+        } else {
+            $user_id=\Auth::getUser()->id;
+        }
+        
+        $buscar=Providers::where('email',$request->email)->where('user_id',$user_id)->first();
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este correo!')->warning()->important();
         } else {
-            $buscar2=Providers::where('rif',$request->rif)->where('user_id',\Auth::getUser()->id)->first();
+            $buscar2=Providers::where('rif',$request->rif)->where('user_id',$user_id)->first();
             if (count($buscar2)>0) {
                 flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este RIF!')->warning()->important();
             } else {
-                $buscar3=Providers::where('business_name',$request->business_name)->where('user_id',\Auth::getUser()->id)->first();
+                $buscar3=Providers::where('business_name',$request->business_name)->where('user_id',$user_id)->first();
                 if (count($buscar3)>0) {
                     flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este Nombre!')->warning()->important();
                 } else {
@@ -59,10 +71,13 @@ class ProvidersController extends Controller
                     $provider->address=$request->address;
                     $provider->email=$request->email;
                     $provider->phone=$request->phone;
-                    $provider->user_id=\Auth::getUser()->id;
+                    $provider->user_id=$user_id;
+                    
+                    
                     $provider->save();
 
                     flash('<i class="icon-circle-check"></i> Proveedor registrado con satisfactoriamente!')->success()->important();
+                    return redirect()->to('providers');
                 }
             }
         }
@@ -101,6 +116,11 @@ class ProvidersController extends Controller
      */
     public function update(ProvidersRequest $request, $id)
     {
+        if (\Auth::getUser()->user_type=="Admin") {
+            $user_id=$request->user_id;
+        } else {
+            $user_id=\Auth::getUser()->id;
+        }
         $buscar=Providers::where('email',$request->email)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este correo!')->warning()->important();
@@ -122,9 +142,12 @@ class ProvidersController extends Controller
                     $provider->address=$request->address;
                     $provider->email=$request->email;
                     $provider->phone=$request->phone;
+                    $provider->user_id=$user_id;
+                    
                     $provider->save();
 
                     flash('<i class="icon-circle-check"></i> Proveedor actualizado con satisfactoriamente!')->success()->important();
+                    return redirect()->to('providers');
                 }
             }
         }

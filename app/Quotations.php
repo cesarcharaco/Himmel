@@ -8,7 +8,7 @@ class Quotations extends Model
 {
     protected $table='quotations';
 
-    protected $fillable=['client_id','comments','discount','offer_validity','place_delivery','delivery_term','way_pay','coin','address_to','emaill_comments'];
+    protected $fillable=['client_id','comments','discount','offer_validity','place_delivery','delivery_term','way_pay','coin','address_to','email_comments'];
 
     public function clients()
     {

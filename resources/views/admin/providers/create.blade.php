@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('sub-title')
-<title>Himmel! | Registar Clientes</title>
+<title>Himmel! | Registar Proveedor</title>
 @endsection
 
 @section('css')
@@ -10,13 +10,13 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Clientes</h4>
+            <h4 class="page-title">Proveedor</h4>
                 
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Clientes</li>
+                        <li class="breadcrumb-item active" aria-current="page">Proveedor</li>
                     </ol>
                 </nav>
             </div>
@@ -42,20 +42,23 @@
 	<div class="row">
 		<div class="col-12">
             <div class="card">
-                <form class="form-horizontal" method="POST" action="{{ route('clients.store') }}">
+                <form class="form-horizontal" method="POST" action="{{ route('providers.store') }}">
                     @csrf
                     <div class="card-body">
-                        <h4 class="card-title">Registrar Clientes <br> <p>Todos los campos son requeridos (<b style="color:red;">*</b>)</p></h4>
+                        <h4 class="card-title">Registrar Proveedor <br> <p>Todos los campos son requeridos (<b style="color:red;">*</b>)</p></h4>
                         <div class="row mb-3">
-                            <div class="col-lg-8">
-                                <label for="name"> <b style="color:red;">*</b>Nombre:</label>
-                                <input type="text" class="form-control" placeholder="Ej: Carmen Gómez" name="name" id="name" value="{{ old('name') }}">
+                            <div class="col-lg-6">
+                                <label for="name"> <b style="color:red;">*</b> Nombre:</label>
+                                <input type="text" class="form-control" placeholder="Ej: Grupo Lomas" name="business_name" id="business_name" value="{{ old('business_name') }}">
                             </div>
-                            
+                            <div class="col-lg-6">
+                                <label for="name"> <b style="color:red;">*</b>Representante:</label>
+                                <input type="text" class="form-control" placeholder="Ej: Martin Morgado" name="salesman" id="salesman" value="{{ old('salesman') }}">
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-1">
-                                <label for="cedula"> <b style="color:red;">*</b>Cédula:</label>
+                                <label for="cedula"> <b style="color:red;">*</b>RIF:</label>
                                 <input type="text" class="form-control" placeholder="Ej: J" name="letter" id="letter" value="{{ old('letter') }}">
                             </div>
                             <div class="col-lg-4">
