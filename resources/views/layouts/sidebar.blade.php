@@ -12,6 +12,7 @@
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('clients.index') }}" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Clientes</span></a></li>
                  <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('providers.index') }}" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Proveedores</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('quotations.index') }}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Cotizaciones</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('purchaseorders.index') }}" aria-expanded="false"><i class="mdi mdi-relative-scale"></i><span class="hide-menu">Ordenes de Compra</span></a></li>
                 {{--<li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Forms </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
                         <li class="sidebar-item"><a href="form-basic.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Form Basic </span></a></li>
