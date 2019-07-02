@@ -48,30 +48,26 @@ class ProductsController extends Controller
     public function store(ProductsRequest $request)
     {
         $buscar=Products::where('name',$request->name)->where('unity',$request->unity)->where('user_id',\Auth::getUser()->id)->first();
-        if (count($buscar)>0) {
+
+        if ($buscar !== null && count($buscar) > 0) {
+
             flash('<i class="icon-circle-check"></i> Ya tiene un producto registrado con este nombre y unidad de medida!')->warning()->important();
             return redirect()->to('products/create');
+
         } else {
         
                 $product=new Products();
+                $product->user_id = \Auth::getUser()->id;
+                $product->fill($request->except('user_id'))->save();
 
-                $product->name=$request->name;
-                $product->characteriscs=$request->characteriscs;
-                $product->existence=$request->existence;
-                $product->unity=$request->unity;
-                $product->price=$request->price;
-                $product->stock_min=$request->stock_min;
-                $product->stock_max=$request->stock_max;
-                $product->user_id=\Auth::getUser()->id;
-                $product->save();
 
-                $product2=Products::find($product->id);
-                for ($i=0; $i < count($request->provider_id) ; $i++) { 
-                    $product2->providers->pivot->porvider_id=$request->provider_id[$i];
-                    $product2->providers->pivot->product_id=$product->id;
-                    
+                if ( count($request->provider_id) > 0) 
+                {
+                    foreach ($request->provider_id as $key => $provider) 
+                    {
+                        $product->providers()->attach($provider, ['cost' => $request->cost[$key]]);
+                    }
                 }
-                
 
                 flash('<i class="icon-circle-check"></i> Producto registrado con satisfactoriamente!')->success()->important();
                 return redirect()->to('products/create');

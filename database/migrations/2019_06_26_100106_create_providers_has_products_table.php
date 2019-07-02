@@ -17,7 +17,7 @@ class CreateProvidersHasProductsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('provider_id');
             $table->unsignedBigInteger('product_id');
-            $table->float('cost');
+            $table->float('cost')->nullable();
 
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

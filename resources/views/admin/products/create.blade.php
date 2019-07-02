@@ -83,16 +83,19 @@
                                 <input type="text" class="form-control" placeholder="Stock máximo" name="stock_max" id="stock_max" value="{{ old('stock_max') }}">
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label class="col-md-3 m-t-15">Proveedores</label>
-                                    <div class="col-md-12">
-                                        <select name="provider_id[]" id="provider_id" class="select2 form-control m-t-15" multiple="multiple" style="height: 36px;width: 100%;">
-                                            @foreach($providers as $key)
-                                                <option value="{{ $key->id }}">{{ $key->business_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="provider_id">Proveedores</label>
+                                <div class="form-group">
+                                    <select onchange="getVal(this);" name="provider_id[]" id="provider_id" class="select2 form-control m-t-15" multiple="multiple">
+                                        @foreach($providers as $key)
+                                            <option value="{{ $key->id }}">{{ $key->business_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+                        <div id="appendInputs"></div>
                     </div>
                     <div class="border-top">
                         <div class="card-body">
@@ -107,4 +110,44 @@
 @endsection
 
 @section('scripts')
+
+<script type="text/javascript">
+
+var strfn = new Array();
+
+function getVal (element) {
+
+    var providers; providers = @json($providers);   
+    var strvalues = $(element).val();
+
+    strfn = [];
+    
+    strvalues.forEach(function (argument) {    
+
+        providers.find(provider => {
+        
+            if ( (provider.id == argument) ) strfn.push(provider) 
+
+        });
+    });
+
+    $('#appendInputs').empty();
+
+    strfn.forEach(function (argument) {
+
+        $('#appendInputs').append(function(n){
+            return '<div class="row">'+
+                   '<div class="col">'+
+                   '<label for="cost">'+ argument.business_name +'</label>'+
+                   '<div class="form-group">'+
+                   '<input type="text" class="form-control" placeholder="0" name="cost[]" id="cost">'+
+                   '</div>'+
+                   '</div>'+
+                   '</div>';
+        });
+    });
+}
+
+</script>
+
 @endsection
