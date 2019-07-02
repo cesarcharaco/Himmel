@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('sub-title')
-<title>Himmel! | Registar Cotización</title>
+<title>Himmel! | Registar Orden de Compra</title>
 @endsection
 
 @section('css')
@@ -10,13 +10,13 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Cotización</h4>
+            <h4 class="page-title">Orden de Compra</h4>
                 
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Cotización</li>
+                        <li class="breadcrumb-item active" aria-current="page">Orden de Compra</li>
                     </ol>
                 </nav>
             </div>
@@ -42,10 +42,10 @@
 	<div class="row">
 		<div class="col-12">
             <div class="card">
-                <form class="form-horizontal" method="POST" action="{{ route('quotations.store') }}" enctype="multipart/form-data">
+                <form class="form-horizontal" method="POST" action="{{ route('purchaseorders.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
-                        <h4 class="card-title">Registrar Cotización <br> <p>Todos los campos son requeridos (<b style="color:red;">*</b>)</p></h4>
+                        <h4 class="card-title">Registrar Orden de Compra <br> <p>Todos los campos son requeridos (<b style="color:red;">*</b>)</p></h4>
                         @if(\Auth::getUser()->user_type=="Admin")
                         <div class="row mb-3">
                             <div class="col-lg-8">
@@ -61,9 +61,9 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-8">
-                                <label for="name"> <b style="color:red;">*</b>Clientes:</label>
-                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="client_id" id="client_id">
-                                	@foreach($clients as $key)
+                                <label for="name"> <b style="color:red;">*</b>Proveedores:</label>
+                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="provider_id" id="provider_id">
+                                	@foreach($providers as $key)
                                 		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->letter }}-{{ $key->rif }}</option>
                                 	@endforeach
                                 </select>
@@ -73,9 +73,9 @@
                         @else
                         <div class="row mb-3">
                             <div class="col-lg-8">
-                                <label for="name"> <b style="color:red;">*</b>Clientes:</label>
-                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="client_id" id="client_id">
-                                	@foreach($clients as $key)
+                                <label for="name"> <b style="color:red;">*</b>Proveedores:</label>
+                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="provider_id" id="provider_id">
+                                	@foreach($providers as $key)
                                 		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->letter }}-{{ $key->rif }}</option>
                                 	@endforeach
                                 </select>
@@ -121,80 +121,17 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-4">
-                                <label for="Comentarios">Comentarios:</label>
+                                <label for="Comentarios">Comentarios Adicionales:</label>
                                 <input type="text" class="form-control" placeholder="Ej: Todo Bien" name="comments" id="comments" value="{{ old('comments') }}">
                             </div>
                             <div class="col-lg-4">
-                                <label for="Descuento"> Descuento:</label>
-                                <input type="number" class="form-control" name="discount" id="discount" value="{{ old('discount') }}">
+                                <label for="enviar"> Enviar a:</label>
+                                <input type="email" class="form-control" name="send_email" id="send_email" placeholder="Ej: miproveedor@gmail.com" value="{{ old('send_email') }}">
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-8">
-                                <label for="Comentarios">Archivos:</label>
-                                <input type="file" multiple="multiple" class="form-control" placeholder="Ej: Todo Bien" name="files[]" id="files" >
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                        	<div class="col-lg-4">
-                        	<label for="Comentarios"><b>Condiciones Generales:</b></label>	
-                        	</div>
-                        </div>
-                        <div class="row mb-3">
-                        	
-                            <div class="col-lg-4">
-                                <label for="Validez"><b style="color:red;">*</b>Validez de Oferta:</label>
-                                <input type="date"  value="{{$hoy}}" min="{{$hoy}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="offer_validity" id="offer_validity">
-                            </div>
-                            <div class="col-lg-4">
-                                <label for="Lugar"><b style="color:red;">*</b> Lugar de entrega:</label>
-                                <input type="text" class="form-control" name="place_delivery" id="place_delivery" value="{{ old('place_delivery') }}">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                        	
-                            <div class="col-lg-4">
-                                <label for="plazo"><b style="color:red;">*</b>Plazo de Entrega:</label>
-                                <input type="date"  value="{{$hoy}}" min="{{$hoy}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="offer_validity" id="offer_validity" value="{{ old('offer_validity') }}">
-                            </div>
-                            <div class="col-lg-2">
-                                <label for="Lugar"><b style="color:red;">*</b> Forma de Pago:</label>
-                                <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="way_pay" name="way_pay" checked="checked" value="Transferencia">
-                                <label class="custom-control-label" for="customControlValidation1">Transferencia</label>
-                            	</div>
-                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="way_pay1" name="way_pay" value="Efectivo">
-                                <label class="custom-control-label" for="customControlValidation2">Efectivo</label>
-                            </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <label for="Moneda"><b style="color:red;">*</b>Moneda</label>
-                                <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="coin" id="coin">
-                                        <option value="Dolar USD">Dolar USD</option>
-                                        <option value="Pesos">Pesos</option>
-                                        <option value="Soles">Soles</option>
-                                        <option value="Bitcoin">Bitcoin</option>
-                                        <option value="Otro">Otro</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                        	<div class="col-lg-4">
-                        	<label for="Comentarios"><b>Adiciones al Correo:</b></label>	
-                        	</div>
-                        </div>
-                        <div class="row mb-3">
-                        	
-                            <div class="col-lg-4">
-                                <label for="adiciones">Dirigido a:</label>
-                                <input type="text"  value="{{old('address_to')}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="address_to" id="address_to">
-                            </div>
-                            <div class="col-lg-4">
-                                <label for="Comentarios Correo">Comentarios del Correo:</label>
-                                <textarea class="form-control" name="email_comments" id="email_comments"></textarea>
-                            </div>
-                        </div>
+                        
+                        
+                        
                     </div>
                     <div class="border-top">
                         <div class="card-body">
@@ -220,20 +157,20 @@ $(document).ready( function(){
 	    $.get("/clients/"+id+"/search",function (data) {
 	    
 
-	       $("#client_id").empty();
-	       $("#client_id").append('<option value="" selected disabled> Seleccione el Cliente</option>');
+	       $("#provider_id").empty();
+	       $("#provider_id").append('<option value="" selected disabled> Seleccione el Cliente</option>');
 	        
 	        if(data.length > 0){
 
 	            for (var i = 0; i < data.length ; i++) 
 	            {  
-	                $("#client_id").removeAttr('disabled');
-	                $("#client_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|' + data[i].letter +'-' + data[i].rif +'</option>');
+	                $("#provider_id").removeAttr('disabled');
+	                $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|' + data[i].letter +'-' + data[i].rif +'</option>');
 	            }
 
 	        }else{
 	            
-	            $("#client_id").attr('disabled', false);
+	            $("#provider_id").attr('disabled', false);
 
 	        }
 		});
@@ -281,7 +218,7 @@ $(document).ready( function(){
 
 	        }else{
 	            
-	            //$("#client_id").attr('disabled', false);
+	            //$("#provider_id").attr('disabled', false);
 
 	        }
 		});

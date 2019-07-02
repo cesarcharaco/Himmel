@@ -14,4 +14,6 @@ class Files extends Model
     {
     	return $this->belongsTo('App\Quotations','quotation_id');
     }
+
+    
 }

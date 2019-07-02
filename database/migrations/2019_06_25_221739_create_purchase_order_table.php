@@ -18,8 +18,9 @@ class CreatePurchaseOrderTable extends Migration
             $table->date('date');
             $table->unsignedBigInteger('provider_id');
             $table->string('codex');
-            $table->enum('status',['Sin Aprobar','Aprobada','Cancelada','Ejecutada']);
-
+            $table->enum('status',['Sin Aprobar','Aprobada','Cancelada','Ejecutada'])->default('Sin Aprobar');
+            $table->string('comments')->nullable();
+            $table->string('send_email');
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
             
             $table->timestamps();
