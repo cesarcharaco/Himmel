@@ -83,8 +83,35 @@
                                 <input type="text" class="form-control" placeholder="Stock máximo" name="stock_max" id="stock_max" value="{{ old('stock_max') }}">
                             </div>
                         </div>
+                        @if(\Auth::getUser()->user_type=="Admin")
                         <div class="row">
                             <div class="col">
+                                <label for="provider_id">Usuarios</label>
+                                <div class="form-group">
+                                    <select name="user_id" id="user_id" class="select2 form-control m-t-15">
+                                        <option value="">Seleccione un Usuario</option>
+                                        @foreach($users as $key)
+                                            <option value="{{ $key->id }}">{{ $key->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                
+                                <label for="provider_id">Proveedores</label>
+                                <div class="form-group">
+                                    <select onchange="getVal(this);" name="provider_id[]" id="provider_id" class="select2 form-control m-t-15" multiple="multiple">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        @else
+                        <div class="row">
+                            <div class="col">
+                                <input type="hidden" name="user_id" value="{{ \Auth::getUser()->id }}">
                                 <label for="provider_id">Proveedores</label>
                                 <div class="form-group">
                                     <select onchange="getVal(this);" name="provider_id[]" id="provider_id" class="select2 form-control m-t-15" multiple="multiple">
@@ -95,11 +122,12 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div id="appendInputs"></div>
                     </div>
                     <div class="border-top">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
                     </div>
                 </form>
@@ -148,6 +176,30 @@ function getVal (element) {
     });
 }
 
-</script>
 
+    $("#user_id").on("change", function (event) {
+        var id = event.target.value;
+
+
+        $.get("/providers/"+id+"/search",function (data) {
+        
+
+           $("#provider_id").empty();
+            
+            if(data.length > 0){
+
+                for (var i = 0; i < data.length ; i++) 
+                {  
+                    $("#provider_id").removeAttr('disabled');
+                    $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].business_name +'|' + data[i].letter +'-' + data[i].rif +'</option>');
+                }
+
+            }else{
+                
+                $("#provider_id").attr('disabled', false);
+
+            }
+        });
+    });
+</script>
 @endsection

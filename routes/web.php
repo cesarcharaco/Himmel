@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('products/{user_id}/search','QuotationsController@search_products');
 	Route::get('products/{product_id}/add','QuotationsController@products_add');
 	
-
+	Route::post('product/delete/provider','ProductsController@delete_provider')->name('product.delete.provider');
+	Route::get('providers/{user_id}/search','ProductsController@providers_search')->name('providers.search');
 });
 

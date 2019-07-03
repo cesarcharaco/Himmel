@@ -54,7 +54,7 @@
                                     <td>{{ $key->price }}</td>
                                     <td>{{ $key->stock_min }}</td>
                                     <td>{{ $key->stock_max }}</td>
-                                    <td></td>
+                                    <td><a href="{{ route('products.edit',$key->id) }}"><span class="badge badge-pill badge-dark"><i class="mdi mdi-pencil"></span></i></a></td>
                                 </tr>
                                 @endforeach 
                             </tbody>
