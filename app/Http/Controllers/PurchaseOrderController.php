@@ -98,7 +98,12 @@ class PurchaseOrderController extends Controller
                     'amount' => $request->amount[$i]
                 ]);
             }
-
+        //generando pdf de la orden de compra
+             $pdf = PDF::loadView('pdf.curriculo', compact('usuario'));
+                $salida=$pdf->output();
+                $ruta='C:/xampp/htdocs/bolsa/public/descargas/'.'Curriculo de '.$usuario->name." ".$usuario->second_name.'.pdf';
+                file_put_contents($ruta, $salida);
+            //----------------
          Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
             return back()->with('message',['success','Se ha enviado a la empresa un email con el PDF adjunto.']);
         }
