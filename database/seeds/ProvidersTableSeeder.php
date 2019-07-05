@@ -13,8 +13,7 @@ class ProvidersTableSeeder extends Seeder
     {
         \DB::table('providers')->insert([
         	'business_name' => 'OdontoClinics YAEL C.A'
-        	,'letter' => 'J',
-        	'rif' => 121221121,
+        	,'rut' => '12323371',
         	'salesman' => 'Javier Romero',
         	'address' => '5ta Av. Amazonas Edificio Vertical pisos 1-2-3',
         	'email' => 'odontoclinics.yael@gmail.com',
@@ -24,8 +23,7 @@ class ProvidersTableSeeder extends Seeder
 
         \DB::table('providers')->insert([
         	'business_name' => 'Babel Construct C.A'
-        	,'letter' => 'J',
-        	'rif' => 121221121,
+        	,'rut' => '12323372',
         	'salesman' => 'Martin Labrador',
         	'address' => 'Sector Mamporal, Av. Martin',
         	'email' => 'babel.construc@gmail.com',

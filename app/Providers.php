@@ -8,7 +8,7 @@ class Providers extends Model
 {
     protected $table='providers';
 
-    protected $fillable=['business_name','letter','rif','salesman','address','email','phone','user_id'];
+    protected $fillable=['business_name','rut','salesman','address','email','phone','user_id'];
 
     public function users()
     {

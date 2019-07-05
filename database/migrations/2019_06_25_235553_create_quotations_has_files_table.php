@@ -16,6 +16,7 @@ class CreateQuotationsHasFilesTable extends Migration
         Schema::create('quotations_has_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('quotation_id');
+            $table->string('name_file');
             $table->float('file_url');
             $table->foreign('quotation_id')->references('id')->on('quotations')->onDelete('cascade');
             $table->timestamps();

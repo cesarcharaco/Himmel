@@ -28,14 +28,14 @@
 		<div class="col-12">
 			<div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{{ route('providers.create') }}" style="color: white;" class="btn btn-info align-right">Registrar Cliente</a></h5>
+                    <h5 class="card-title"><a href="{{ route('providers.create') }}" style="color: white;" class="btn btn-info align-right">Registrar Proveedor</a></h5>
 
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Nombre de la Empresa</th>
-                                    <th>Cédula</th>
+                                    <th>RUT</th>
                                     <th>Representante</th>
                                     <th>Dirección</th>
                                     <th>Correo</th>
@@ -47,7 +47,7 @@
                                 @foreach($providers as $key)
                                 <tr>
                                     <td>{{ $key->business_name }}</td>
-                                    <td>{{ $key->letter }} - {{ $key->rif }}</td>
+                                    <td>{{ $key->rut }}</td>
                                     <td>{{ $key->salesman }}</td>
                                     <td>{{ $key->address }}</td>
                                     <td>{{ $key->email }}</td>
@@ -59,7 +59,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Nombre de la Empresa</th>
-                                    <th>Cédula</th>
+                                    <th>RUT</th>
                                     <th>Representante</th>
                                     <th>Dirección</th>
                                     <th>Correo</th>

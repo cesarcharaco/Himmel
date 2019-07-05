@@ -35,7 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>Proveedor</th>
-                                    <th>RIF</th>
+                                    <th>RUT</th>
                                     <th>Correo</th>
                                     <th>Emitida</th>
                                     <th>Estado</th>
@@ -46,8 +46,8 @@
                                 @foreach($purchaseorders as $key)
                                 @if(\Auth::getUser()->user_type=="Admin")
                                 <tr>
-                                    <td>{{ $key->providers->name }}</td>
-                                    <td>{{ $key->providers->letter }} - {{ $key->providers->rif }}</td>
+                                    <td>{{ $key->providers->business_name }}</td>
+                                    <td>{{ $key->providers->rut }}</td>
                                     <td>{{ $key->providers->email }}</td>
                                     <td>{{ $key->created_at }}</td>
                                     <td>{{ $key->status }}</td>
@@ -69,7 +69,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Proveedor</th>
-                                    <th>RIF</th>
+                                    <th>RUT</th>
                                     <th>Correo</th>
                                     <th>Emitida</th>
                                     <th>Estado</th>

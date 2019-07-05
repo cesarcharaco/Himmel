@@ -35,7 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>Cliente</th>
-                                    <th>Cédula</th>
+                                    <th>RUT</th>
                                     <th>Correo</th>
                                     <th>Emitida</th>
                                     <th>Acciones</th>
@@ -45,7 +45,7 @@
                                 @foreach($quotations as $key)
                                 <tr>
                                     <td>{{ $key->clients->name }}</td>
-                                    <td>{{ $key->clients->letter }} - {{ $key->clients->rif }}</td>
+                                    <td>{{ $key->clients->rut }}</td>
                                     <td>{{ $key->clients->email }}</td>
                                     <td>{{ $key->created_at }}</td>
                                     <td></td>
@@ -55,7 +55,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Cliente</th>
-                                    <th>Cédula</th>
+                                    <th>RUT</th>
                                     <th>Correo</th>
                                     <th>Emitida</th>
                                     <th>Acciones</th>

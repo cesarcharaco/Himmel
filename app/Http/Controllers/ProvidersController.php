@@ -54,9 +54,9 @@ class ProvidersController extends Controller
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este correo!')->warning()->important();
         } else {
-            $buscar2=Providers::where('rif',$request->rif)->where('user_id',$user_id)->first();
+            $buscar2=Providers::where('rut',$request->rut)->where('user_id',$user_id)->first();
             if (count($buscar2)>0) {
-                flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este RIF!')->warning()->important();
+                flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este RUT!')->warning()->important();
             } else {
                 $buscar3=Providers::where('business_name',$request->business_name)->where('user_id',$user_id)->first();
                 if (count($buscar3)>0) {
@@ -65,8 +65,7 @@ class ProvidersController extends Controller
                     $provider=new Providers();
 
                     $provider->business_name=$request->business_name;
-                    $provider->letter=$request->letter;
-                    $provider->rif=$request->rif;
+                    $provider->rut=$request->rut;
                     $provider->salesman=$request->salesman;
                     $provider->address=$request->address;
                     $provider->email=$request->email;
@@ -125,9 +124,9 @@ class ProvidersController extends Controller
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este correo!')->warning()->important();
         } else {
-            $buscar2=Providers::where('rif',$request->rif)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
+            $buscar2=Providers::where('rut',$request->rut)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
             if (count($buscar2)>0) {
-                flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este RIF!')->warning()->important();
+                flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este RUT!')->warning()->important();
             } else {
                 $buscar3=Providers::where('business_name',$request->business_name)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
                 if (count($buscar3)>0) {
@@ -136,8 +135,7 @@ class ProvidersController extends Controller
                     $provider= Providers::find($id);
 
                     $provider->business_name=$request->business_name;
-                    $provider->letter=$request->letter;
-                    $provider->rif=$request->rif;
+                    $provider->rut=$request->rut;
                     $provider->salesman=$request->salesman;
                     $provider->address=$request->address;
                     $provider->email=$request->email;

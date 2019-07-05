@@ -35,7 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Cédula</th>
+                                    <th>RUT</th>
                                     <th>Dirección</th>
                                     <th>Correo</th>
                                     <th>Acciones</th>
@@ -45,7 +45,7 @@
                                 @foreach($clients as $key)
                                 <tr>
                                     <td>{{ $key->name }}</td>
-                                    <td>{{ $key->letter }} - {{ $key->rif }}</td>
+                                    <td>{{ $key->rut }}</td>
                                     <td>{{ $key->address }}</td>
                                     <td>{{ $key->email }}</td>
                                     <td></td>
@@ -55,7 +55,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Cédula</th>
+                                    <th>RUT</th>
                                     <th>Dirección</th>
                                     <th>Correo</th>
                                     <th>Acciones</th>

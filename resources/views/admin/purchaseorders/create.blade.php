@@ -64,7 +64,7 @@
                                 <label for="name"> <b style="color:red;">*</b>Proveedores:</label>
                                 <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="provider_id" id="provider_id">
                                 	@foreach($providers as $key)
-                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->letter }}-{{ $key->rif }}</option>
+                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->rut }}</option>
                                 	@endforeach
                                 </select>
                             </div>
@@ -76,7 +76,7 @@
                                 <label for="name"> <b style="color:red;">*</b>Proveedores:</label>
                                 <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="provider_id" id="provider_id">
                                 	@foreach($providers as $key)
-                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->letter }}-{{ $key->rif }}</option>
+                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->rut }}</option>
                                 	@endforeach
                                 </select>
                             </div>
@@ -86,38 +86,38 @@
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <label for="name"> <b style="color:red;">*</b>Productos:</label>
-                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="products_select" id="products_select">
+                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="pruduct_id[]" id="pruduct_id" multiple="multiple"  onchange="getVal(this);">
                                 	@foreach($products as $key)
-                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->characteriscs }} | {{ $key->unity }} | {{ $key->existence }}</option>
+                                		<option value="{{ $key->id }}" title="{{ $key->characteriscs }} | {{ $key->unity }} | {{ $key->existence }}">{{ $key->name }}</option>
                                 	@endforeach
                                 </select>
                             </div>
                             
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-12">
-                                <label for="cedula"> <b style="color:red;">*</b>Lista de Productos:</label>
-                                <div class="table-responsive">
-                        			<table id="lista_productos" class="table table-striped table-bordered">
-			                            <thead>
-			                                <tr>
-			                                    <th>Nombre</th>
-			                                    <th>Característica</th>
-			                                    <th>Unidad</th>
-			                                    <th>Precio</th>
-			                                    <th>Cantidad</th>
-			                                    <th>Acciones</th>
-			                                </tr>
-			                            </thead>
-			                            <tbody>
-			                            	
-			                            </tbody>
-			                            <tfoot>
-			                            	<tr><th colspan="4"></th><th>Total: <span id="total"></span></th><th></th></tr>
-			                            </tfoot>
-			                        </table>
-                    			</div>
+                            {{-- <div id="appendInputs"></div> --}}
+                        <div  class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Característica</th>
+                                            <th scope="col">Unidad</th>
+                                            <th scope="col">Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  id="appendInputs">
+                                        
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-8">
+                                <label for="archivos">Archivos:</label>
+                                <input type="file" class="form-control" placeholder="Ej: Todo Bien" name="files[]" multiple="multiple" id="files">
+                            </div>
+                            
                         </div>
                         <div class="row mb-3">
                             <div class="col-lg-4">
@@ -129,7 +129,6 @@
                                 <input type="email" class="form-control" name="send_email" id="send_email" placeholder="Ej: miproveedor@gmail.com" value="{{ old('send_email') }}">
                             </div>
                         </div>
-                        
                         
                         
                     </div>
@@ -165,7 +164,7 @@ $(document).ready( function(){
 	            for (var i = 0; i < data.length ; i++) 
 	            {  
 	                $("#provider_id").removeAttr('disabled');
-	                $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|' + data[i].letter +'-' + data[i].rif +'</option>');
+	                $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|' + data[i].rut +'</option>');
 	            }
 
 	        }else{
@@ -177,62 +176,66 @@ $(document).ready( function(){
 		$.get("/products/"+id+"/search",function (data) {
 	    
 
-	       $("#products_select").empty();
-	       $("#products_select").append('<option value="0" selected disabled> Seleccione un Producto</option>');
+	       $("#pruduct_id").empty();
+	       
 	        
 	        if(data.length > 0){
 
 	            for (var i = 0; i < data.length ; i++) 
 	            {  
-	                $("#products_select").removeAttr('disabled');
-	                $("#products_select").append('<option value="'+ data[i].id + '">' + data[i].name +' | ' + data[i].characteriscs +' | ' + data[i].unity +' | ' + data[i].unity +'</option>');
+	                $("#pruduct_id").removeAttr('disabled');
+	                $("#pruduct_id").append('<option value="'+ data[i].id +
+                    '" title="' + data[i].characteriscs + ' | ' +
+                    ' | ' + data[i].unity +' | ' + data[i].existence +
+                    '">' + data[i].name + '</option>');
 	            }
 
 	        }else{
 	            
-	            $("#products_select").attr('disabled', false);
+	            $("#pruduct_id").attr('disabled', false);
 
 	        }
 		});
 	});
-	$("#products_select").on("change", function (event) {
-	    var id = event.target.value;
-
-
-	    $.get("/products/"+id+"/add",function (data) {
-	    
-
-	       //$("#lista_productos").empty();
-	       
-	        
-	        if(data.length > 0){
-	        	LineNum++;
-	            for (var i = 0; i < data.length ; i++) 
-	            {
-	            	//$('#products_select').children('option[value="'+id+'"]').attr('disabled',true);
-	             	//$("#lista_productos").append('<tr>'); 
-	                //$("#products").removeAttr('disabled');
-	                $("#lista_productos").append('<tr id="Line'+LineNum+'"><td><input type="hidden" name="product_id[]" id="product_id" value="'+ data[i].id + '">' + data[i].name +'</td><td>'+ data[i].characteriscs +'</td><td>' + data[i].unity +'</td><td>'+ data[i].price +'</td><td><input type="number" name="amount[]" id="amount required="required"></td><td><button type="button" onclick="EliminarLinea('+LineNum+','+data[i].id+');"  class="btn btn-danger btn-sm"><i class="m-r-10 mdi mdi-delete"><code class="m-r-10"></code></button></td></tr>');
-	                //$("#lista_productos").append('</tr>');
-	            }
-
-	        }else{
-	            
-	            //$("#provider_id").attr('disabled', false);
-
-	        }
-		});
-	});
-
-	
 });
-function EliminarLinea(rnum,id_opcion) {
-	var next=id_opcion-1;
-	//console.log(id_opcion+" siguiente "+next);
-	/*$('#products_select').children('option[value="'+next+'"]').attr('selected',true);
-	$('#products_select').children('option[value="'+id_opcion+'"]').removeAttr('disabled');*/
-	$('#Line'+rnum).remove();
-        return true;
+</script>
+<script type="text/javascript">
+
+var strfn = new Array();
+
+function getVal (element) {
+
+    var products; products = @json($products);   
+    var strvalues = $(element).val();
+
+    strfn = [];
+    
+    strvalues.forEach(function (argument) {    
+
+        products.find(product => {
+        
+            if ( (product.id == argument) ) strfn.push(product) 
+
+        });
+    });
+
+    $('#appendInputs').empty();
+    
+    strfn.forEach(function (argument) {
+
+        $('#appendInputs').append(function(n){
+            return '<tr>'+
+                   '<td scope="col">'+ argument.name +'</td>'+
+                   '<td scope="col">'+ argument.characteriscs +'</td>'+
+                   '<td scope="col">'+ argument.unity +'</td>'+
+                   '<td>'+
+                   '<div class="form-group">'+
+                   '<input type="text" class="form-control" placeholder="0" name="amount[]" id="amount">'+
+                   '</div>'+
+                   '</td>'+
+                   '</tr>';
+        });
+    });
 }
 </script>
 @endsection

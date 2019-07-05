@@ -50,15 +50,14 @@ class ClientsController extends Controller
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un Cliente registrado con este correo!')->warning()->important();
         } else {
-            $buscar2=Clients::where('rif',$request->rif)->where('user_id',\Auth::getUser()->id)->first();
+            $buscar2=Clients::where('rut',$request->rut)->where('user_id',\Auth::getUser()->id)->first();
             if (count($buscar2)>0) {
-                flash('<i class="icon-circle-check"></i> Ya tiene un Cliente registrado con este RIF!')->warning()->important();
+                flash('<i class="icon-circle-check"></i> Ya tiene un Cliente registrado con este RUT!')->warning()->important();
             } else {
                 $client=new Clients();
 
                 $client->name=$request->name;
-                $client->letter=$request->letter;
-                $client->rif=$request->rif;
+                $client->rut=$request->rut;
                 $client->address=$request->address;
                 $client->phone=$request->phone;
                 $client->email=$request->email;
@@ -115,15 +114,14 @@ class ClientsController extends Controller
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un cliente registrado con este correo!')->warning()->important();
         } else {
-            $buscar2=Clients::where('rif',$request->rif)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
+            $buscar2=Clients::where('rut',$request->rut)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
             if (count($buscar2)>0) {
-                flash('<i class="icon-circle-check"></i> Ya tiene un cliente registrado con este RIF!')->warning()->important();
+                flash('<i class="icon-circle-check"></i> Ya tiene un cliente registrado con este RUT!')->warning()->important();
             } else {
                 $client= Clients::find($id);
 
                 $client->name=$request->name;
-                $client->letter=$request->letter;
-                $client->letter=$request->rif;
+                $client->letter=$request->rut;
                 $client->address=$request->address;
                 $client->phone=$request->phone;
                 $client->email=$request->email;

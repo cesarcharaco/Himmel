@@ -64,7 +64,7 @@
                                 <label for="name"> <b style="color:red;">*</b>Clientes:</label>
                                 <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="client_id" id="client_id">
                                 	@foreach($clients as $key)
-                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->letter }}-{{ $key->rif }}</option>
+                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->rut }}</option>
                                 	@endforeach
                                 </select>
                             </div>
@@ -76,7 +76,7 @@
                                 <label for="name"> <b style="color:red;">*</b>Clientes:</label>
                                 <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="client_id" id="client_id">
                                 	@foreach($clients as $key)
-                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->letter }}-{{ $key->rif }}</option>
+                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->rut }}</option>
                                 	@endforeach
                                 </select>
                             </div>
@@ -228,7 +228,7 @@ $(document).ready( function(){
 	            for (var i = 0; i < data.length ; i++) 
 	            {  
 	                $("#client_id").removeAttr('disabled');
-	                $("#client_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|' + data[i].letter +'-' + data[i].rif +'</option>');
+	                $("#client_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|'+ data[i].rut +'</option>');
 	            }
 
 	        }else{

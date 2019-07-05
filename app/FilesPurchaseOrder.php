@@ -8,7 +8,7 @@ class FilesPurchaseOrder extends Model
 {
     protected $table='purchaseorders_has_files';
 
-    protected $fillable=['purchase_id','url_file'];
+    protected $fillable=['purchase_id','name_file','url_file'];
 
     public function purchaseorders()
     {

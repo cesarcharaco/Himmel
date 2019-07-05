@@ -16,7 +16,8 @@ class CreatePurchaseordersHasFiles extends Migration
         Schema::create('purchaseorders_has_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('purchase_id');
-            $table->float('file_url');
+            $table->string('name_file');
+            $table->string('url_file');
             $table->foreign('purchase_id')->references('id')->on('purchase_order')->onDelete('cascade');
             $table->timestamps();
         });

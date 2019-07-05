@@ -8,7 +8,7 @@ class Files extends Model
 {
     protected $table='quotations_has_files';
 
-    protected $fillable=['quotation_id','url_file'];
+    protected $fillable=['quotation_id','name_file','url_file'];
 
     public function quotations()
     {

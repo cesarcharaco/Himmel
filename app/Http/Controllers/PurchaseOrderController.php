@@ -8,7 +8,7 @@ use App\Products;
 use App\User;
 use App\FilesPurchaseOrder;
 use Illuminate\Http\Request;
-
+use Mail;
 class PurchaseOrderController extends Controller
 {
     /**
@@ -55,28 +55,62 @@ class PurchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-        
-            $buscar=PurchaseOrder::all();
-            $ultimo=$buscar->last();
+        $this->validate($request, [
+            'files.*' => 'mimes:doc,pdf,docx,zip'
+        ]);
+
+        if($request->hasfile('files')){
+
+            foreach($request->file('files') as $file){
+
+                $name=$file->getClientOriginalName();
+                $file->move(public_path().'/files/', $name);  
+                $names[] = $name;
+                $urls[] = public_path().'/files/'.$name;
+
+            }
+
+         }
+            
+            
+            $codigo=$this->generarCodigo();
+            //dd($ultimo);
             $purchase= new PurchaseOrder();
             $purchase->date=date('Y-m-d');
             $purchase->provider_id=$request->provider_id;
-            $purchase->codex=date('Ymd')."-".$ultimo;
+            $purchase->codex=date('Ymd')."-".$codigo;
             $purchase->comments=$request->comments;
             $purchase->send_email=$request->send_email;
             $purchase->save();
-
+            if(!isset($data)){  
+                for ($i=0; $i <count($names) ; $i++) { 
+                    $myfiles= new FilesPurchaseOrder();
+                    $myfiles->purchase_id = $purchase->id;
+                    $myfiles->name_file = $names[$i];
+                    $myfiles->url_file = $urls[$i];
+                    $myfiles->save();
+                }
+            }
             for ($i=0; $i < count($request->product_id) ; $i++) { 
                 \DB::table('purchase_has_products')->insert([
                     'purchase_id' => $purchase->id,
                     'product_id' => $request->product_id[$i],
-                    'amount' => $request->amount[$id]
+                    'amount' => $request->amount[$i]
                 ]);
             }
 
-        flash('<i class="icon-circle-check"></i> Orden de COmpra registrada exitosamente!')->success()->important();
+         Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
+            return back()->with('message',['success','Se ha enviado a la empresa un email con el PDF adjunto.']);
+        }
+
+
+
+
+
+
+        flash('<i class="icon-circle-check"></i> Orden de Compra registrada exitosamente!')->success()->important();
             return redirect()->to('purchaseorders');
-        
+
     }
 
     /**
@@ -122,5 +156,13 @@ class PurchaseOrderController extends Controller
     public function destroy(PurchaseOrder $purchaseOrder)
     {
         //
+    }
+
+    protected function generarCodigo() {
+     $key = '';
+     $pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
+     $max = strlen($pattern)-1;
+     for($i=0;$i < 4;$i++) $key .= $pattern{mt_rand(0,$max)};
+     return $key;
     }
 }

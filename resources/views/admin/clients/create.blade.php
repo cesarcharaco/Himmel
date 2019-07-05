@@ -54,14 +54,11 @@
                             
                         </div>
                         <div class="row mb-3">
-                            <div class="col-lg-1">
-                                <label for="cedula"> <b style="color:red;">*</b>Cédula:</label>
-                                <input type="text" class="form-control" placeholder="Ej: J" name="letter" id="letter" value="{{ old('letter') }}">
-                            </div>
                             <div class="col-lg-4">
-                            	<label for="cedula">&nbsp;</label>
-                                <input type="text" class="form-control" placeholder="Ej: 1234567" name="rif" id="rif" value="{{ old('rif') }}">
+                                <label for="rut"> <b style="color:red;">*</b>RUT:</label>
+                                <input type="text" class="form-control" placeholder="Ej: 1234567" name="rut" id="rut" value="{{ old('rut') }}">
                             </div>
+                            
                             <div class="col-lg-3">
                                 <label for="cedula">Teléfono</label>
                                 <input type="text" class="form-control international-inputmask" placeholder="Ej: 52223232323" name="phone" id="phone" value="{{ old('phone') }}">
