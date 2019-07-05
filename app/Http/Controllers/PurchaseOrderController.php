@@ -82,7 +82,9 @@ class PurchaseOrderController extends Controller
             $purchase->comments=$request->comments;
             $purchase->send_email=$request->send_email;
             $purchase->save();
-            if(!isset($data)){  
+            
+            if(isset($names)){  
+                dd("vghjkl");
                 for ($i=0; $i <count($names) ; $i++) { 
                     $myfiles= new FilesPurchaseOrder();
                     $myfiles->purchase_id = $purchase->id;
@@ -99,14 +101,15 @@ class PurchaseOrderController extends Controller
                 ]);
             }
         //generando pdf de la orden de compra
-             $pdf = PDF::loadView('pdf.curriculo', compact('usuario'));
+
+             $pdf = PDF::loadView('admin.pdfs.purchase_order', compact('purchase',$purchase));
                 $salida=$pdf->output();
-                $ruta='C:/xampp/htdocs/bolsa/public/descargas/'.'Curriculo de '.$usuario->name." ".$usuario->second_name.'.pdf';
+                $ruta='C:/xampp/htdocs/Himmel/public/PurchaseOrders/'.'Orden de Compra '.$purchase->codex.'.pdf';
                 file_put_contents($ruta, $salida);
             //----------------
-         Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
+         /*Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
             return back()->with('message',['success','Se ha enviado a la empresa un email con el PDF adjunto.']);
-        }
+        }*/
 
 
 

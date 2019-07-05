@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Clients','user_id','id');
     }
+
+    public function pdfcontent()
+    {
+        return $this->hasMany('App\PdfContent','user_id','id');
+    }
 }
