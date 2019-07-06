@@ -71,6 +71,7 @@
                             
                         </div>
                         @else
+                        <input type="hidden" name="user_id" value="{{ \Auth::getUser()->id }}">
                         <div class="row mb-3">
                             <div class="col-lg-8">
                                 <label for="name"> <b style="color:red;">*</b>Proveedores:</label>

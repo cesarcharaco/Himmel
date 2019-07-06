@@ -7,8 +7,10 @@ use App\Providers;
 use App\Products;
 use App\User;
 use App\FilesPurchaseOrder;
+use App\PdfContent;
 use Illuminate\Http\Request;
 use Mail;
+use PDF;
 class PurchaseOrderController extends Controller
 {
     /**
@@ -84,7 +86,7 @@ class PurchaseOrderController extends Controller
             $purchase->save();
             
             if(isset($names)){  
-                dd("vghjkl");
+                
                 for ($i=0; $i <count($names) ; $i++) { 
                     $myfiles= new FilesPurchaseOrder();
                     $myfiles->purchase_id = $purchase->id;
@@ -100,11 +102,15 @@ class PurchaseOrderController extends Controller
                     'amount' => $request->amount[$i]
                 ]);
             }
+            //--- buscando contenido de pdf
+            $pdfcontent=PdfContent::where('user_id',$request->user_id)->first();
+            //dd($pdfcontent->);
+            //-----------
         //generando pdf de la orden de compra
 
-                 $pdf = PDF::loadView('admin.pdfs', compact('purchase',$purchase));
+                 $pdf = PDF::loadView('admin.pdfs.purchase_order', compact('purchase','pdfcontent'));
                     $salida=$pdf->output();
-                    $ruta=public_path().'/PurchaseOrders/'.'Orden de Compra '.$purchase->codex.'.pdf';
+                    $ruta=public_path().'/FilesPurchaseOrders/'.'Orden de Compra '.$purchase->codex.'.pdf';
                     file_put_contents($ruta, $salida);
             //----------------
          /*Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
@@ -117,7 +123,7 @@ class PurchaseOrderController extends Controller
 
 
         flash('<i class="icon-circle-check"></i> Orden de Compra registrada exitosamente!')->success()->important();
-            return redirect()->to('purchaseorders.index');
+            return redirect()->to('purchaseorders');
 
     }
 

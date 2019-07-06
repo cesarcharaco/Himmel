@@ -1,4 +1,4 @@
-@extends('pdfs.partials.layout-purchase')
+@extends('admin.pdfs.partials.layouts-purchase')
 @section('css')
 <style>
   th {

@@ -71,7 +71,7 @@
   <header>
     <p align="center">
       
-      <img src="{{ public_path() . $purchase->users->pdfcontent->url_image }}" class="logo" alt="Cintillo">
+      <img src="{{ public_path() . $pdfcontent->url_image }}" class="logo" alt="Cintillo">
     <br><br><br><br>  
     <b><br>
     Orden de Compra N° {{$purchase->codex}}</b>
