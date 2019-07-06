@@ -8,6 +8,7 @@ use App\Products;
 use App\User;
 use App\FilesPurchaseOrder;
 use App\PdfContent;
+use App\Mail\Adjuntar;
 use Illuminate\Http\Request;
 use Mail;
 use PDF;
@@ -68,7 +69,7 @@ class PurchaseOrderController extends Controller
                 $name=$file->getClientOriginalName();
                 $file->move(public_path().'/files/', $name);  
                 $names[] = $name;
-                $urls[] = public_path().'/files/'.$name;
+                $urls[] ='files/'.$name;
 
             }
 
@@ -104,22 +105,24 @@ class PurchaseOrderController extends Controller
             }
             //--- buscando contenido de pdf
             $pdfcontent=PdfContent::where('user_id',$request->user_id)->first();
-            //dd($pdfcontent->);
+            
             //-----------
         //generando pdf de la orden de compra
 
                  $pdf = PDF::loadView('admin.pdfs.purchase_order', compact('purchase','pdfcontent'));
                     $salida=$pdf->output();
-                    $ruta=public_path().'/FilesPurchaseOrders/'.'Orden de Compra '.$purchase->codex.'.pdf';
+                    $name='Orden de Compra '.$purchase->codex.'.pdf';
+                    $ruta=public_path().'/FilesPurchaseOrders/'.$name;
+                    //---- registrando archivo
+                    $myfiles= new FilesPurchaseOrder();
+                    $myfiles->purchase_id = $purchase->id;
+                    $myfiles->name_file = $name;
+                    $myfiles->url_file = 'FilesPurchaseOrder/'.$name;
+                    $myfiles->save();
+                    //----------------------------
                     file_put_contents($ruta, $salida);
             //----------------
-         /*Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
-            return back()->with('message',['success','Se ha enviado a la empresa un email con el PDF adjunto.']);
-        }*/
-
-
-
-
+         Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); 
 
 
         flash('<i class="icon-circle-check"></i> Orden de Compra registrada exitosamente!')->success()->important();
@@ -174,7 +177,7 @@ class PurchaseOrderController extends Controller
 
     protected function generarCodigo() {
      $key = '';
-     $pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
+     $pattern = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
      $max = strlen($pattern)-1;
      for($i=0;$i < 4;$i++) $key .= $pattern{mt_rand(0,$max)};
      return $key;

@@ -7,6 +7,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\FilesPurchaseOrder;
+use App\PurchaseOrder;
+
 class Adjuntar extends Mailable{
     use Queueable, SerializesModels;
     public $sector;
@@ -16,12 +18,14 @@ class Adjuntar extends Mailable{
     }
 
     public function build(){
-         $email = $this->view('correo.adjunto')->subject('Curriculum');
+        ini_set('max_execution_time', 360); //3 minutes 
+        $purchaseorders=PurchaseOrder::all();
+         $email = $this->view('admin.purchaseorders.index',compact('purchaseorders'))->subject('Orden de Compra');
 
 	    // $archivosadjuntos es una matriz con rutas de archivos de archivos adjuntos
-         $archivosadjuntos = new FilesPurchaseOrder::where('purchase_id',$this->sector)->get();
+         $archivosadjuntos = FilesPurchaseOrder::where('purchase_id',$this->sector)->get();
 	    foreach($archivosadjuntos as $rutaArchivo){
-	        $email->attach($rutaArchivo);
+	        $email->attach(public_path().'/'.$rutaArchivo->url_file);
 	    }
 	    return $email;
     }
