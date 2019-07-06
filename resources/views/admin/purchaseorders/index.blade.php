@@ -86,7 +86,5 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript">
-	$('#zero_config').DataTable();
-</script>
+
 @endsection

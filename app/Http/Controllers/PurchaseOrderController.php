@@ -102,10 +102,10 @@ class PurchaseOrderController extends Controller
             }
         //generando pdf de la orden de compra
 
-             $pdf = PDF::loadView('admin.pdfs.purchase_order', compact('purchase',$purchase));
-                $salida=$pdf->output();
-                $ruta='C:/xampp/htdocs/Himmel/public/PurchaseOrders/'.'Orden de Compra '.$purchase->codex.'.pdf';
-                file_put_contents($ruta, $salida);
+                 $pdf = PDF::loadView('admin.pdfs', compact('purchase',$purchase));
+                    $salida=$pdf->output();
+                    $ruta=public_path().'/PurchaseOrders/'.'Orden de Compra '.$purchase->codex.'.pdf';
+                    file_put_contents($ruta, $salida);
             //----------------
          /*Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); // Se ha conseguido que los PDF se creen y se ha conseguido enviar el email. Solo queda que los emails se adjunte.
             return back()->with('message',['success','Se ha enviado a la empresa un email con el PDF adjunto.']);
@@ -117,7 +117,7 @@ class PurchaseOrderController extends Controller
 
 
         flash('<i class="icon-circle-check"></i> Orden de Compra registrada exitosamente!')->success()->important();
-            return redirect()->to('purchaseorders');
+            return redirect()->to('purchaseorders.index');
 
     }
 

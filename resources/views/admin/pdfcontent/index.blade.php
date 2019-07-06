@@ -81,19 +81,18 @@
                                 <h4 class="modal-title"><strong>Eliminar Registro</strong></h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
-                            <form action="{{ route('product.delete.provider') }}" method="POST" name="eliminar">
+                            {!! Form::open(['route' => ['pdfcontent.destroy',1033], 'method' => 'DELETE']) !!}
                                 @csrf
                             <div class="modal-body">
                                 <strong>Está seguro de Eliminar este registro?</strong>
-                                <input type="hidden" name="pdfcontent_id" id="pdfcontent_id">
+                                <input type="text" name="pdfcontent_id" id="pdfcontent_id">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-success save-event waves-effect waves-light">Eliminar</button>
                                 
                             </div>
-                            </form>
-                        </div>
+                            {!! Form::close() !!}               </div>
                     </div>
                 </div>
                 <!-- END MODAL -->
@@ -101,6 +100,8 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#zero_config').DataTable();
+	function destroy(pdfcontent_id) {
+        $("#pdfcontent_id").val(pdfcontent_id);
+    }
 </script>
 @endsection

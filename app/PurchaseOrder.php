@@ -24,4 +24,5 @@ class PurchaseOrder extends Model
     {
         return $this->hasMany('App\FilesPurchaseOrder','purchase_id','id');
     }
+
 }

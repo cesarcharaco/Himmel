@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PdfContent;
 use App\User;
+
 class PdfContentController extends Controller
 {
     /**
@@ -63,7 +64,8 @@ class PdfContentController extends Controller
         ]);
 
         $name=$request->file('image')->getClientOriginalName();
-        $request->file('image')->move('/images/', $name);  
+        $ok=$request->file('image')->move(public_path().'/images/', $name);  
+        //dd($ok);
         $url = '/images/'.$name;
 
         $pdfcontent=new PdfContent();
@@ -98,7 +100,16 @@ class PdfContentController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        if (\Auth::getUser()->user_type=="Admin") {
+            $users=User::where('user_type','<>','Admin')->get();
+            $pdfcontent=PdfContent::find($id);
+            return view('admin.pdfcontent.edit',compact('users','pdfcontent'));
+        } else {
+            $pdfcontent=PdfContent::find($id);
+            
+                return view('admin.pdfcontent.edit',compact('pdfcontent'));
+            }
     }
 
     /**
@@ -110,7 +121,47 @@ class PdfContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        if ($request->file('image')!=="") {
+            $this->validate($request, [
+            'image.*' => 'mimes:jpeg,jpg,png',
+            'page_foot' => 'required'
+            ]);
+        } else {
+            $this->validate($request, [
+            'page_foot' => 'required'
+        ]);
+        }
+        
+        if ($request->file('image')!=="") {
+            $pdfcontent=PdfContent::find($id);
+            unlink(public_path().'/'.$pdfcontent->url_image);
+            
+
+            $name=$request->file('image')->getClientOriginalName();
+            $ok=$request->file('image')->move(public_path().'/images/', $name);  
+            //dd($ok);
+            $url = '/images/'.$name;
+
+            
+            $pdfcontent->user_id=$request->user_id;
+            $pdfcontent->image_name=$name;
+            $pdfcontent->url_image=$url;
+            $pdfcontent->page_foot=$request->page_foot;
+            $pdfcontent->save();
+
+        } else {
+            
+            $pdfcontent=PdfContent::find($id);
+            $pdfcontent->user_id=$request->user_id;
+            $pdfcontent->page_foot=$request->page_foot;
+            $pdfcontent->save();
+        }
+        
+        
+        flash('<i class="icon-circle-check"></i> Contenido de PDF actualizado exitosamente!')->success()->important();
+            return redirect()->to('pdfcontent');
+
     }
 
     /**
@@ -119,8 +170,17 @@ class PdfContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+         $pdfcontent=PdfContent::find($request->pdfcontent_id);
+         $image=$pdfcontent->url_image;
+        if ($pdfcontent->delete()) {
+            unlink(public_path().'/'.$image);
+            flash('Registro eliminado exitosamente!', 'success');
+                return redirect()->back();
+        } else {
+            flash('No se pudo eliminar el registro, posiblemente esté siendo usada su información en otra área!', 'error');
+                return redirect()->back();
+        }        
     }
 }
