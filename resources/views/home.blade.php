@@ -92,28 +92,28 @@
                                 <div class="col-6">
                                     <div class="bg-dark p-10 text-white text-center">
                                        <i class="fa fa-user m-b-5 font-16"></i>
-                                       <h5 class="m-b-0 m-t-5">2540</h5>
+                                       <h5 class="m-b-0 m-t-5">{{ search_clients() }}</h5>
                                        <small class="font-light">Total Clientes</small>
                                     </div>
                                 </div>
                                  <div class="col-6">
                                     <div class="bg-dark p-10 text-white text-center">
-                                       <i class="fa fa-plus m-b-5 font-16"></i>
-                                       <h5 class="m-b-0 m-t-5">120</h5>
-                                       <small class="font-light">Nuevos Clientes</small>
+                                       <i class="fa fa-user m-b-5 font-16"></i>
+                                       <h5 class="m-b-0 m-t-5">{{ search_providers() }}</h5>
+                                       <small class="font-light">Total Proveedores</small>
                                     </div>
                                 </div>
                                 <div class="col-6 m-t-15">
                                     <div class="bg-dark p-10 text-white text-center">
-                                       <i class="fa fa-cart-plus m-b-5 font-16"></i>
-                                       <h5 class="m-b-0 m-t-5">656</h5>
-                                       <small class="font-light">Total Ventas</small>
+                                       <i class="fa fa-tag m-b-5 font-16"></i>
+                                       <h5 class="m-b-0 m-t-5">{{ search_quotations() }}</h5>
+                                       <small class="font-light">Total Cotizaciones</small>
                                     </div>
                                 </div>
                                  <div class="col-6 m-t-15">
                                     <div class="bg-dark p-10 text-white text-center">
-                                       <i class="fa fa-tag m-b-5 font-16"></i>
-                                       <h5 class="m-b-0 m-t-5">9540</h5>
+                                       <i class="fa fa-cart-plus m-b-5 font-16"></i>
+                                       <h5 class="m-b-0 m-t-5">{{ search_purchase() }}</h5>
                                        <small class="font-light">Total Órdenes de Compra</small>
                                     </div>
                                 </div>
