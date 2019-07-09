@@ -14,6 +14,7 @@ return [
     */
 
     'failed' => 'Estas credenciales no coinciden con nuestros registros.',
-    'throttle' => 'Demasiados intentos fallidos en muy poco tiempo. Por favor intente de nuevo en :seconds segundos.',
+    'throttle' => 'Demasiados intentos de inicio de sesión. Vuelva a intentarlo en :seconds :min.',
+    'bloqueado' => 'Demasiados intentos de inicio de sesión. Vuelva a intentarlo en 60 minutos.',
 
 ];

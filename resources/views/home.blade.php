@@ -7,12 +7,12 @@
  <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Dashboard</h4>
+            <h4 class="page-title">Escritorio</h4>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        <li class="breadcrumb-item active" aria-current="page">Escritorio</li>
                     </ol>
                 </nav>
             </div>
@@ -35,7 +35,7 @@
             <div class="card card-hover">
                 <div class="box bg-cyan text-center">
                     <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                    <h6 class="text-white">Dashboard</h6>
+                   <a href="{{ route('products.index') }}"> <h6 class="text-white">Poductos</h6></a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
             <div class="card card-hover">
                 <div class="box bg-success text-center">
                     <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                    <h6 class="text-white">Charts</h6>
+                    <a href="{{ route('quotations.index') }}"><h6 class="text-white">Cotizaciones</h6></a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
             <div class="card card-hover">
                 <div class="box bg-warning text-center">
                     <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                    <h6 class="text-white">Widgets</h6>
+                   <a href="{{ round('clients.index') }}"> <h6 class="text-white">Clientes</h6></a>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             <div class="card card-hover">
                 <div class="box bg-danger text-center">
                     <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                    <h6 class="text-white">Tables</h6>
+                    <a href="{{ route('purchaseorders.index') }}"><h6 class="text-white">Órdenes de Compra</h6></a>
                 </div>
             </div>
         </div>
@@ -75,49 +75,49 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-md-flex align-items-center">
-                        <div>
+                        {{-- <div>
                             <h4 class="card-title">Site Analysis</h4>
                             <h5 class="card-subtitle">Overview of Latest Month</h5>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="row">
                         <!-- column -->
-                        <div class="col-lg-9">
+                        {{-- <div class="col-lg-9">
                             <div class="flot-chart">
                                 <div class="flot-chart-content" id="flot-line-chart"></div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-3">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="bg-dark p-10 text-white text-center">
                                        <i class="fa fa-user m-b-5 font-16"></i>
                                        <h5 class="m-b-0 m-t-5">2540</h5>
-                                       <small class="font-light">Total Users</small>
+                                       <small class="font-light">Total Clientes</small>
                                     </div>
                                 </div>
                                  <div class="col-6">
                                     <div class="bg-dark p-10 text-white text-center">
                                        <i class="fa fa-plus m-b-5 font-16"></i>
                                        <h5 class="m-b-0 m-t-5">120</h5>
-                                       <small class="font-light">New Users</small>
+                                       <small class="font-light">Nuevos Clientes</small>
                                     </div>
                                 </div>
                                 <div class="col-6 m-t-15">
                                     <div class="bg-dark p-10 text-white text-center">
                                        <i class="fa fa-cart-plus m-b-5 font-16"></i>
                                        <h5 class="m-b-0 m-t-5">656</h5>
-                                       <small class="font-light">Total Shop</small>
+                                       <small class="font-light">Total Ventas</small>
                                     </div>
                                 </div>
                                  <div class="col-6 m-t-15">
                                     <div class="bg-dark p-10 text-white text-center">
                                        <i class="fa fa-tag m-b-5 font-16"></i>
                                        <h5 class="m-b-0 m-t-5">9540</h5>
-                                       <small class="font-light">Total Orders</small>
+                                       <small class="font-light">Total Órdenes de Compra</small>
                                     </div>
                                 </div>
-                                <div class="col-6 m-t-15">
+                                {{-- <div class="col-6 m-t-15">
                                     <div class="bg-dark p-10 text-white text-center">
                                        <i class="fa fa-table m-b-5 font-16"></i>
                                        <h5 class="m-b-0 m-t-5">100</h5>
@@ -130,7 +130,7 @@
                                        <h5 class="m-b-0 m-t-5">8540</h5>
                                        <small class="font-light">Online Orders</small>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <!-- column -->
