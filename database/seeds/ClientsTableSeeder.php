@@ -16,7 +16,7 @@ class ClientsTableSeeder extends Seeder
         	'rut' => '12323323',
         	'address' => 'Sector Centro, calle 2',
             'phone' => '2121223232',
-        	'email' => 'josequintero@gmail.com',
+        	'email' => 'jcesarchg9@gmail.com',
         	'user_id' => 2
         ]);
         \DB::table('clients')->insert([

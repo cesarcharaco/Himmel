@@ -127,8 +127,7 @@ class PurchaseOrderController extends Controller
                     //----------------------------
                     file_put_contents($ruta, $salida);
             //----------------
-
-
+            
         flash('<i class="icon-circle-check"></i> Orden de Compra registrada exitosamente!')->success()->important();
             return redirect()->to('purchaseorders');
 

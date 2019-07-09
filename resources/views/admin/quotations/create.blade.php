@@ -71,6 +71,7 @@
                             
                         </div>
                         @else
+                        <input type="hidden" name="user_id" value="{{ \Auth::getUser()->id }}">
                         <div class="row mb-3">
                             <div class="col-lg-8">
                                 <label for="name"> <b style="color:red;">*</b>Clientes:</label>
@@ -113,7 +114,7 @@
 			                            	
 			                            </tbody>
 			                            <tfoot>
-			                            	<tr><th colspan="4"></th><th>Total: <span id="total"></span></th><th></th></tr>
+			                            	<tr><th colspan="4"></th><th>Total: <span id="total"></span></th><th><input type="hidden" name="total_amount" id="total_amount" class="total_amount"></th></tr>
 			                            </tfoot>
 			                        </table>
                     			</div>
@@ -155,7 +156,7 @@
                         	
                             <div class="col-lg-4">
                                 <label for="plazo"><b style="color:red;">*</b>Plazo de Entrega:</label>
-                                <input type="date"  value="{{$hoy}}" min="{{$hoy}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="offer_validity" id="offer_validity" value="{{ old('offer_validity') }}">
+                                <input type="date"  value="{{$hoy}}" min="{{$hoy}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="time_delivery" id="time_delivery" value="{{ old('time_delivery') }}">
                             </div>
                             <div class="col-lg-2">
                                 <label for="Lugar"><b style="color:red;">*</b> Forma de Pago:</label>
@@ -275,7 +276,7 @@ $(document).ready( function(){
 	            	//$('#products_select').children('option[value="'+id+'"]').attr('disabled',true);
 	             	//$("#lista_productos").append('<tr>'); 
 	                //$("#products").removeAttr('disabled');
-	                $("#lista_productos").append('<tr id="Line'+LineNum+'"><td><input type="hidden" name="product_id[]" id="product_id" value="'+ data[i].id + '">' + data[i].name +'</td><td>'+ data[i].characteriscs +'</td><td>' + data[i].unity +'</td><td>'+ data[i].price +'</td><td><input type="number" name="amount[]" id="amount required="required"></td><td><button type="button" onclick="EliminarLinea('+LineNum+','+data[i].id+');"  class="btn btn-danger btn-sm"><i class="m-r-10 mdi mdi-delete"><code class="m-r-10"></code></button></td></tr>');
+	                $("#lista_productos").append('<tr id="Line'+LineNum+'"><td><input type="hidden" name="product_id[]" id="product_id" value="'+ data[i].id + '">' + data[i].name +'</td><td>'+ data[i].characteriscs +'</td><td>' + data[i].unity +'</td><td>'+ data[i].price +'</td><td><input onchange="add_amount(this)" type="number" name="amount[]" class="amount" id="amount required="required"></td><td><button type="button" onclick="EliminarLinea('+LineNum+','+data[i].id+');"  class="btn btn-danger btn-sm"><i class="m-r-10 mdi mdi-delete"><code class="m-r-10"></code></button></td></tr>');
 	                //$("#lista_productos").append('</tr>');
 	            }
 
@@ -296,6 +297,33 @@ function EliminarLinea(rnum,id_opcion) {
 	$('#products_select').children('option[value="'+id_opcion+'"]').removeAttr('disabled');*/
 	$('#Line'+rnum).remove();
         return true;
+}
+
+function add_amount(argument) {
+    //console.log(argument.value+"vbnm,");
+    var total=0;
+    
+    
+  $(".amount").each(function() {
+    console.log($(this).val()+"dfghjkl");
+    if (isNaN(parseFloat($(this).val()))) {
+
+      total += 0;
+
+    } else {
+
+      total += parseFloat($(this).val());
+
+    }
+
+  });
+
+  //alert(total);
+  $(".total_amount").val(total);
+  document.getElementById('total').innerHTML = total;
+
+
+
 }
 </script>
 @endsection

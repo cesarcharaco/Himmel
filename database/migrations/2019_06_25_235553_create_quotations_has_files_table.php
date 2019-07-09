@@ -17,7 +17,7 @@ class CreateQuotationsHasFilesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('quotation_id');
             $table->string('name_file');
-            $table->float('file_url');
+            $table->string('url_file');
             $table->foreign('quotation_id')->references('id')->on('quotations')->onDelete('cascade');
             $table->timestamps();
         });

@@ -16,11 +16,13 @@ class CreateQuotationsTable extends Migration
         Schema::create('quotations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('client_id');
+            $table->string('codex');
             $table->text('comments')->nullable();
             $table->float('discount')->nullable();
-            $table->string('offer_validity');
+            $table->date('offer_validity');
+            $table->date('time_delivery');
             $table->text('place_delivery');
-            $table->string('delivery_term');
+            $table->string('delivery_term')->nullable();
             $table->enum('way_pay',['Transferencia','Efectivo']);
             $table->enum('coin',['Dolar USD','Pesos','Soles','Bitcoin','Otro']);
             $table->string('addressed_to')->nullable();
