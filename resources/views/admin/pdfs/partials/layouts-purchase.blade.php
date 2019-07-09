@@ -1,5 +1,6 @@
 <html>
 <head>
+  <title>Orden de Compra N° {{ $purchase->codex }}</title>
   @yield('css')
   <style>
     body{
@@ -54,6 +55,7 @@
     th {
     	text-align: center;
     }
+    
     .logo {
       width: 100%;
       height: 50px;
@@ -89,8 +91,8 @@
       <tr>
         
         <td>
-          <p class="page">
-            Página
+          <p class="page" style="text-align: center; font-size: 8;">
+            {{ $pdfcontent->page_foot }} - Página: 
           </p>
         </td>
       </tr>

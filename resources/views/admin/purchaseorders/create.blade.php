@@ -64,7 +64,7 @@
                                 <label for="name"> <b style="color:red;">*</b>Proveedores:</label>
                                 <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="provider_id" id="provider_id">
                                 	@foreach($providers as $key)
-                                		<option value="{{ $key->id }}">{{ $key->name }} | {{ $key->rut }}</option>
+                                		<option value="{{ $key->id }}">{{ $key->business_name }} | {{ $key->rut }}</option>
                                 	@endforeach
                                 </select>
                             </div>
@@ -87,7 +87,7 @@
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <label for="name"> <b style="color:red;">*</b>Productos:</label>
-                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="pruduct_id[]" id="pruduct_id" multiple="multiple"  onchange="getVal(this);">
+                                <select  class="select2 form-control custom-select" style="width: 100%; height:36px;" name="product_id[]" id="product_id" multiple="multiple"  onchange="getVal(this);">
                                 	@foreach($products as $key)
                                 		<option value="{{ $key->id }}" title="{{ $key->characteriscs }} | {{ $key->unity }} | {{ $key->existence }}">{{ $key->name }}</option>
                                 	@endforeach
@@ -154,18 +154,18 @@ $(document).ready( function(){
 	    var id = event.target.value;
 
 
-	    $.get("/clients/"+id+"/search",function (data) {
+	    $.get("/providers/"+id+"/search",function (data) {
 	    
 
 	       $("#provider_id").empty();
-	       $("#provider_id").append('<option value="" selected disabled> Seleccione el Cliente</option>');
+	       $("#provider_id").append('<option value="" selected disabled> Seleccione el Proveedor</option>');
 	        
 	        if(data.length > 0){
 
 	            for (var i = 0; i < data.length ; i++) 
 	            {  
 	                $("#provider_id").removeAttr('disabled');
-	                $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].name +'|' + data[i].rut +'</option>');
+	                $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].business_name +'|' + data[i].rut +'</option>');
 	            }
 
 	        }else{
@@ -177,15 +177,15 @@ $(document).ready( function(){
 		$.get("/products/"+id+"/search",function (data) {
 	    
 
-	       $("#pruduct_id").empty();
+	       $("#product_id").empty();
 	       
 	        
 	        if(data.length > 0){
 
 	            for (var i = 0; i < data.length ; i++) 
 	            {  
-	                $("#pruduct_id").removeAttr('disabled');
-	                $("#pruduct_id").append('<option value="'+ data[i].id +
+	                $("#product_id").removeAttr('disabled');
+	                $("#product_id").append('<option value="'+ data[i].id +
                     '" title="' + data[i].characteriscs + ' | ' +
                     ' | ' + data[i].unity +' | ' + data[i].existence +
                     '">' + data[i].name + '</option>');
@@ -193,7 +193,7 @@ $(document).ready( function(){
 
 	        }else{
 	            
-	            $("#pruduct_id").attr('disabled', false);
+	            $("#product_id").attr('disabled', false);
 
 	        }
 		});

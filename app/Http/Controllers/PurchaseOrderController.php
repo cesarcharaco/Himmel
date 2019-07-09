@@ -59,9 +59,17 @@ class PurchaseOrderController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'files.*' => 'mimes:doc,pdf,docx,zip'
+            'files.*' => 'mimes:doc,pdf,docx,zip',
+            'send_email' => 'email|required'
         ]);
 
+        //--- buscando contenido de pdf
+            $pdfcontent=PdfContent::where('user_id',$request->user_id)->first();
+            
+            //-----------
+        if ($pdfcontent !== null) {
+            
+            $codigo=$this->generarCodigo();
         if($request->hasfile('files')){
 
             foreach($request->file('files') as $file){
@@ -76,7 +84,6 @@ class PurchaseOrderController extends Controller
          }
             
             
-            $codigo=$this->generarCodigo();
             //dd($ultimo);
             $purchase= new PurchaseOrder();
             $purchase->date=date('Y-m-d');
@@ -96,6 +103,7 @@ class PurchaseOrderController extends Controller
                     $myfiles->save();
                 }
             }
+
             for ($i=0; $i < count($request->product_id) ; $i++) { 
                 \DB::table('purchase_has_products')->insert([
                     'purchase_id' => $purchase->id,
@@ -103,10 +111,7 @@ class PurchaseOrderController extends Controller
                     'amount' => $request->amount[$i]
                 ]);
             }
-            //--- buscando contenido de pdf
-            $pdfcontent=PdfContent::where('user_id',$request->user_id)->first();
             
-            //-----------
         //generando pdf de la orden de compra
 
                  $pdf = PDF::loadView('admin.pdfs.purchase_order', compact('purchase','pdfcontent'));
@@ -117,17 +122,20 @@ class PurchaseOrderController extends Controller
                     $myfiles= new FilesPurchaseOrder();
                     $myfiles->purchase_id = $purchase->id;
                     $myfiles->name_file = $name;
-                    $myfiles->url_file = 'FilesPurchaseOrder/'.$name;
+                    $myfiles->url_file = 'FilesPurchaseOrders/'.$name;
                     $myfiles->save();
                     //----------------------------
                     file_put_contents($ruta, $salida);
             //----------------
-         Mail::to($request->send_email)->send(new Adjuntar($purchase->id)); 
 
 
         flash('<i class="icon-circle-check"></i> Orden de Compra registrada exitosamente!')->success()->important();
             return redirect()->to('purchaseorders');
 
+        } else {
+            flash('<i class="icon-circle-check"></i> No se ha podido generar la Orden de Compra ya que el usuario no ha registrado contenido para los Archivos que generará!')->warning()->important();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -138,7 +146,7 @@ class PurchaseOrderController extends Controller
      */
     public function show(PurchaseOrder $purchaseOrder)
     {
-        //
+        
     }
 
     /**
@@ -181,5 +189,40 @@ class PurchaseOrderController extends Controller
      $max = strlen($pattern)-1;
      for($i=0;$i < 4;$i++) $key .= $pattern{mt_rand(0,$max)};
      return $key;
+    }
+
+    public function approve(Request $request)
+    {
+        $purchase=PurchaseOrder::find($request->purchase_id);
+        $purchase->status="Aprobada";
+        $purchase->save();
+        Mail::to($purchase->send_email)->send(new Adjuntar($purchase->id)); 
+
+        flash('<i class="icon-circle-check"></i> Orden de Compra APROBADA exitosamente y enviada al correo electrónico!')->success()->important();
+            return redirect()->to('purchaseorders');
+
+
+    }
+
+    public function watch($purchase_id)
+    {
+        $purchase=PurchaseOrder::find($purchase_id);
+        
+
+        $pdfcontent=PdfContent::where('user_id',$purchase->providers->user_id)->first();
+        $pdf = PDF::loadView('admin.pdfs.purchase_order', array('pdfcontent'=>$pdfcontent, 'purchase'=>$purchase));
+        
+
+            return $pdf->stream('Orden_de_Compra.pdf');
+    }
+
+    public function cancel(Request $request)
+    {
+        $purchase=PurchaseOrder::find($request->purchase_id);
+        $purchase->status="Cancelada";
+        $purchase->save();
+
+        flash('<i class="icon-circle-check"></i> Orden de Compra CANCELADA exitosamente!')->success()->important();
+            return redirect()->to('purchaseorders');        
     }
 }

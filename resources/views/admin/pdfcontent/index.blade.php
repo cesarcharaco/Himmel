@@ -85,7 +85,7 @@
                                 @csrf
                             <div class="modal-body">
                                 <strong>Está seguro de Eliminar este registro?</strong>
-                                <input type="text" name="pdfcontent_id" id="pdfcontent_id">
+                                <input type="hidden" name="pdfcontent_id" id="pdfcontent_id">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>

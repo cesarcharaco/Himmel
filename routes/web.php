@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
 	Route::resource('providers','ProvidersController');
 	Route::resource('requestsorders','RequestsOrderController');
 	Route::resource('purchaseorders','PurchaseOrderController');
+	Route::post('purchase/approve','PurchaseOrderController@approve')->name('purchase.approve');
+	Route::get('purchase/{purchase_id}/watch','PurchaseOrderController@watch')->name('purchase.watch');
+	Route::post('purchase/cancel','PurchaseOrderController@cancel')->name('purchase.cancel');
 
 	Route::resource('quotations','QuotationsController');
 	Route::get('clients/{user_id}/search','QuotationsController@search_clients');
