@@ -22,6 +22,20 @@
         </div>
     </div>
 </div>
+<div class="col-md-12">
+    @include('flash::message')
+     @if (count($errors) > 0)
+        <div class="alert alert-danger">
+        @include('flash::message')
+        <p>Corrige los siguientes errores:</p>
+        <ul>
+            @foreach ($errors->all() as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+        </div>
+    @endif
+</div>
 
 <div class="container-fluid">
 	<div class="row">

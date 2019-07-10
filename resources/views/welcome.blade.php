@@ -41,6 +41,21 @@
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
+                    <div class="col-md-12">
+                        @include('flash::message')
+                         @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                            @include('flash::message')
+                            <p>Corrige los siguientes errores:</p>
+                            <ul>
+                                @foreach ($errors->all() as $message)
+                                    <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
+                            </div>
+                        @endif
+                    </div>
+
                     <div class="text-center p-t-20 p-b-20">
                         {{-- <span class="db"><img src="{{ asset('matrix/assets/images/logo.png') }}" alt="logo" /></span> --}}
                        <font color="#FFFFFF"> <h1>HIMMEL</h1> </font>
