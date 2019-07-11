@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('user_type',['Admin','Gerente','Secretaria(o)']);
             $table->string('log_enterprise');
+            $table->enum('status',['Activo','Suspendido'])->default('Activo');
             $table->rememberToken();
             $table->timestamps();
         });

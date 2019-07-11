@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('sub-title')
-<title>Himmel! | Registar Usuarios</title>
+<title>Himmel! | Registrar Usuarios</title>
 @endsection
 
 @section('css')

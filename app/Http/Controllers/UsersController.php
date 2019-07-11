@@ -125,9 +125,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $user=User::find($request->user_id);
+        $user->status=$request->status;
+        $user->save();
+
+        flash('<i class="icon-circle-check"></i> Status de Usuario actualizado a '.$request->status.' !')->success()->important();
+                return redirect()->to('users');
     }
 
     protected function validator(array $data)
