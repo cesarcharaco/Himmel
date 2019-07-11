@@ -25,8 +25,7 @@ class ProvidersRequest extends FormRequest
     {
         return [
             'business_name' => 'required',
-            'letter' => 'required',
-            'rif' => 'required|numeric',
+            'rut' => 'required',
             'salesman' => 'required',
             'email' => 'required|email'
         ];
@@ -36,9 +35,7 @@ class ProvidersRequest extends FormRequest
     {
         return [
             'business_name.required' => 'El NOmbre de la Empresa es obligatorio',
-            'letter.required' => 'Debe seleccionar un literal del RIF',
-            'rif.required' => 'El RIF es obligatorio',
-            'rif.numeric' => 'El RIF sólo debe contener números',
+            'rut.required' => 'El RUT es obligatorio',
             'salesman.required' => 'El Nombre del representante es obligatorio',
             'email.required' => 'El Correo es obligatorio',
             'email.email' => 'El Correo debe tener un formato válido'

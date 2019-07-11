@@ -96,9 +96,20 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        $client=Clients::find($id);
+        
+        //dd($product->user_id);
+        if (\Auth::getUser()->user_type=="Admin") {
+            $client=Clients::find($id);
+            $users=User::where('user_type','<>','Admin')->get();
+            return view('admin.clients.edit',compact('client','users'));
+        } else {
+            $client=Clients::find($id);
+            return view('admin.clients.edit',compact('client'));
+        }
+        
+        
 
-        return view('admin.clients.edit',compact('client'));
+        
     }
 
     /**
@@ -121,7 +132,7 @@ class ClientsController extends Controller
                 $client= Clients::find($id);
 
                 $client->name=$request->name;
-                $client->letter=$request->rut;
+                $client->rut=$request->rut;
                 $client->address=$request->address;
                 $client->phone=$request->phone;
                 $client->email=$request->email;
@@ -146,7 +157,7 @@ class ClientsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $client=Clients::find($request->id_client);
+        $client=Clients::find($request->client_id);
 
         if ($client->delete()) {
             flash('Registro eliminado satisfactoriamente!', 'success');

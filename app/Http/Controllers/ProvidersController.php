@@ -159,7 +159,7 @@ class ProvidersController extends Controller
      */
     public function destroy(Request $request)
     {
-        $provider=Providers::find($request->id_client);
+        $provider=Providers::find($request->provider_id);
 
         if ($provider->delete()) {
             flash('Registro eliminado satisfactoriamente!', 'success');

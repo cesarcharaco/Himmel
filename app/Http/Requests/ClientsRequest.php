@@ -25,8 +25,7 @@ class ClientsRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'letter' => 'required',
-            'rif' => 'required|numeric',
+            'rut' => 'required',
             'email' => 'required|email'
         ];
     }
@@ -35,9 +34,7 @@ class ClientsRequest extends FormRequest
     {
         return [
             'name.required' => 'El Nombre del Cliente no debe estar vacío',
-            'letter.required' => 'Debe seleccionar un literal del RIF',
-            'rif.required' => 'El RIF no debe estar vacío',
-            'rif.numeric' => 'El RIF sólo deb contener números',
+            'rut.required' => 'El RUT no debe estar vacío',
             'email.required' => 'El Correo no debe estar vacío',
             'email.email' => 'El Correo debe tener el formato correcto'
         ];
