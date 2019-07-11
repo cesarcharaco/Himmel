@@ -66,7 +66,15 @@
                                     <td>{{ $key->address }}</td>
                                     <td>{{ $key->email }}</td>
                                     <td>{{ $key->phone }}</td>
-                                    <td></td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-sm" title="Editar">
+                                        <a href="{{ route('providers.edit',$key->id) }}"><i class="mdi mdi-pencil"></i></a>
+                                        </button>
+                                        <button onclick="destroy('{{ $key->id }}')" type="button" class="btn btn-danger btn-sm">
+                                        <a class="btn-block waves-effect waves-light"  data-toggle="modal" data-target="#my-event" title="Eliminar Información"><i class="mdi mdi-delete"></i>
+                                        </a>
+                                        </button>
+                                    </td>
                                 </tr>
                                 @endforeach 
                             </tbody>
@@ -88,10 +96,37 @@
 		</div>
 	</div>
 </div>
+<!--INICIO DEL MODAL -->
+
+<div class="modal none-border" id="my-event">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Eliminar Registro</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            {!! Form::open(['route' => ['providers.destroy',1033], 'method' => 'DELETE']) !!}
+                @csrf
+            <div class="modal-body">
+                <strong>Está seguro de Eliminar este registro?</strong>
+                <input type="hidden" name="provider_id" id="provider_id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-success save-event waves-effect waves-light">Eliminar</button>
+                
+            </div>
+            {!! Form::close() !!}               </div>
+    </div>
+</div>
+<!-- END MODAL -->
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 	$('#zero_config').DataTable();
+    function destroy(provider_id) {
+        $("#provider_id").val(provider_id);
+    }
 </script>
 @endsection

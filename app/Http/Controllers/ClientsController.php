@@ -125,11 +125,8 @@ class ClientsController extends Controller
                 $client->address=$request->address;
                 $client->phone=$request->phone;
                 $client->email=$request->email;
-                if (\Auth::getUser()->user_type=="Admin") {
-                    $client->user_id=$request->user_id;
-                } else {
-                    $client->user_id=\Auth::getUser()->id;
-                }
+                $client->user_id=$request->user_id;
+                
                 
                 $client->save();
 
