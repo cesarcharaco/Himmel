@@ -86,6 +86,8 @@
                             </div>
                             
                         </div>
+                        @else
+                        <input type="hidden" name="user_id" value="{{ \Authh::getUser()->id }}">
                         @endif
                     </div>
                     <div class="border-top">
