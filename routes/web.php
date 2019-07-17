@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('clients/{user_id}/search','QuotationsController@search_clients');
 	Route::get('products/{user_id}/search','QuotationsController@search_products');
 	Route::get('products/{product_id}/add','QuotationsController@products_add');
+	Route::get('watch/{quotation_id}/watch','QuotationsController@watch')->name('quotations.watch');
 	
 	Route::post('product/delete/provider','ProductsController@delete_provider')->name('product.delete.provider');
 	Route::get('providers/{user_id}/search','ProductsController@providers_search')->name('providers.search');

@@ -189,7 +189,7 @@
                         	
                             <div class="col-lg-4">
                                 <label for="adiciones">Dirigido a:</label>
-                                <input type="text"  value="{{old('address_to')}}" required="required"  class="form-control" placeholder="Ej: Todo Bien" name="address_to" id="address_to">
+                                <input type="text"  value="{{old('address_to')}}" required="required"  class="form-control" placeholder="Ej: José Quintero" name="address_to" id="address_to">
                             </div>
                             <div class="col-lg-4">
                                 <label for="Comentarios Correo">Comentarios del Correo:</label>

@@ -126,10 +126,12 @@ class ClientsController extends Controller
         $buscar=Clients::where('email',$request->email)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un cliente registrado con este correo!')->warning()->important();
+             return redirect()->back();
         } else {
             $buscar2=Clients::where('rut',$request->rut)->where('user_id',\Auth::getUser()->id)->where('id','<>',$id)->first();
             if (count($buscar2)>0) {
                 flash('<i class="icon-circle-check"></i> Ya tiene un cliente registrado con este RUT!')->warning()->important();
+                 return redirect()->back();
             } else {
                 $client= Clients::find($id);
 

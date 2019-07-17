@@ -58,14 +58,17 @@ class ProvidersController extends Controller
         $buscar=Providers::where('email',$request->email)->where('user_id',$user_id)->first();
         if (count($buscar)>0) {
             flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este correo!')->warning()->important();
+            return redirect()->back();
         } else {
             $buscar2=Providers::where('rut',$request->rut)->where('user_id',$user_id)->first();
             if (count($buscar2)>0) {
                 flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este RUT!')->warning()->important();
+                return redirect()->back();
             } else {
                 $buscar3=Providers::where('business_name',$request->business_name)->where('user_id',$user_id)->first();
                 if (count($buscar3)>0) {
                     flash('<i class="icon-circle-check"></i> Ya tiene un Proveedor registrado con este Nombre!')->warning()->important();
+                    return redirect()->back();
                 } else {
                     $provider=new Providers();
 

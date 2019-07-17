@@ -211,9 +211,23 @@ class QuotationsController extends Controller
      * @param  \App\Quotations  $quotations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Quotations $quotations)
+    public function destroy(Request $request)
     {
-        //
+        //dd($request->all());
+        $quotation=Quotations::find($request->quotation_id);
+        foreach ($quotation->files as $key) {
+            
+            unlink(public_path().'/'.$key->url_file);
+        }
+        if ($quotation->delete()) {
+            flash('<i class="icon-circle-check"></i> Cotización eliminada exitosamente!')->success()->important();
+            return redirect()->back();           
+        } else {
+            flash('<i class="icon-circle-check"></i> No se ha podido eliminar la Cotización!')->warning()->important();
+            return redirect()->back();
+        }
+        
+
     }
     protected function generarCodigo() {
      $key = '';
@@ -221,5 +235,18 @@ class QuotationsController extends Controller
      $max = strlen($pattern)-1;
      for($i=0;$i < 4;$i++) $key .= $pattern{mt_rand(0,$max)};
      return $key;
+    }
+
+    public function watch($quotation_id)
+    {
+        //dd($quotation_id);
+        $quotation=Quotations::find($quotation_id);
+        
+        //dd($quotation->clients->user_id);
+        $pdfcontent=PdfContent::where('user_id',$quotation->clients->user_id)->first();
+        $pdf = PDF::loadView('admin.pdfs.quotation', array('pdfcontent'=>$pdfcontent, 'quotation'=>$quotation));
+        
+
+            return $pdf->stream('Cotizacion.pdf');
     }
 }
