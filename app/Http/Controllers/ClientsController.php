@@ -15,7 +15,12 @@ class ClientsController extends Controller
      */
     public function index()
     {
+        if (\Auth::getUser()->user_type=="Admin") {
         $clients=Clients::all();
+        } else {
+        $clients=Clients::where('user_id',\Auth::getUser()->id)->get();
+        }
+        
         $cont=count($clients);
 
         return view('admin.clients.index',compact('clients','cont'));

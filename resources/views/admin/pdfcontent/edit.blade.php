@@ -46,6 +46,7 @@
                             <div class="col-lg-6">
                                 <label for="characteriscs">Imagen de Encabezado:</label>
                                 <input type="file" class="form-control" name="image" id="characteriscs">
+                                <small>La imagen debe ser mayor a 844 x 63 píxeles</small>
                             </div>
                             <div class="col-lg-6">
                                 <label for="page_foot"> <b style="color:red;">*</b>Pie de Página:</label>

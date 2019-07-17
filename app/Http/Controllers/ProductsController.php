@@ -16,7 +16,13 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products= Products::all();
+        if (\Auth::getUser()->user_type=="Admin") {
+            $products= Products::all();
+        } else {
+            $products= Products::where('user_id',\Auth::getUser()->id)->get();
+        }
+        
+        
         $cont=count($products);
 
         return view('admin.products.index',compact('products','cont'));

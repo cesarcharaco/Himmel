@@ -37,7 +37,8 @@ class PdfContentController extends Controller
             return view('admin.pdfcontent.create',compact('users'));
         } else {
             $buscar=PdfContent::where('user_id',\Auth::getUser()->id)->get();
-            if ($buscar !== null) {
+            
+            if (count($buscar)>0) {
                 flash('<i class="icon-circle-check"></i> Ya existe un registro del Contenido de PDF, para registrar uno debe eliminar el anterior!')->success()->important();
                 return redirect()->back();
             } else {
@@ -60,6 +61,7 @@ class PdfContentController extends Controller
         $this->validate($request, [
             'image' => 'required',
             'image.*' => 'mimes:jpeg,jpg,png',
+            'image' => 'dimensions:max_width=844,max_height=63',
             'page_foot' => 'required'
         ]);
 
@@ -125,6 +127,7 @@ class PdfContentController extends Controller
         if ($request->file('image')!=="") {
             $this->validate($request, [
             'image.*' => 'mimes:jpeg,jpg,png',
+            'image' => 'dimensions:max_width=844,max_height=63',
             'page_foot' => 'required'
             ]);
         } else {

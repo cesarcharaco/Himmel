@@ -50,6 +50,7 @@
                             <div class="col-lg-8">
                                 <label for="name"> <b style="color:red;">*</b>Imagen de Encabezado:</label>
                                 <input type="file" class="form-control"  name="image" id="image">
+                                <small>La imagen debe ser mayor a 844 x 63 píxeles</small>
                             </div>
                             
                         </div>

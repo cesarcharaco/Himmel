@@ -173,4 +173,11 @@ class UsersController extends Controller
     {
         return Auth::guard();
     }
+
+    public function profile()
+    {
+        $user=User::find(\Auth::getUser()->id);
+
+        return view('admin.users.profile',compact('user'));
+    }
 }

@@ -15,7 +15,12 @@ class ProvidersController extends Controller
      */
     public function index()
     {
+        if (\Auth::getUser()->user_type=="Admin") {
         $providers=Providers::all();
+        } else {
+        $providers=Providers::where('user_id',\Auth::getUser()->id)->get();
+        }
+        
         $cont=count($providers);
 
         return view('admin.providers.index',compact('providers','cont'));

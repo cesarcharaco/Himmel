@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::middleware('auth')->group(function () {
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('profile','UsersController@profile')->name('profile');
 
 	Route::resource('products','ProductsController');
 	Route::resource('clients','ClientsController');
