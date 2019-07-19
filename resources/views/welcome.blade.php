@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('matrix/assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logos/HIMMEL-01.png') }}">
     <title>Himmel</title>
     <!-- Custom CSS -->
     <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">
@@ -57,8 +57,8 @@
                     </div>
 
                     <div class="text-center p-t-20 p-b-20">
-                        {{-- <span class="db"><img src="{{ asset('matrix/assets/images/logo.png') }}" alt="logo" /></span> --}}
-                       <font color="#FFFFFF"> <h1>HIMMEL</h1> </font>
+                        <span class="db"><img style="background: #FFFFFF; border-radius: 25px" src="{{ asset('logos/HIMMEL-01.png') }}" width="50%" height="50%" alt="logo" /></span>
+                       {{-- <font color="#FFFFFF"> <h1>HIMMEL</h1> </font> --}}
                     </div>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" action="{{ route('login') }}" method="POST">

@@ -1,4 +1,4 @@
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('matrix/assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logos/HIMMEL-01.png') }}">
     <!-- Custom CSS -->
     <link href="{{ asset('matrix/assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
     <!-- Custom CSS -->

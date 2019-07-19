@@ -11,15 +11,16 @@
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
+                            <img style="border-radius: 37.5px;" src="{{ asset('logos/HIMMEL-02.png') }}" alt="homepage"  width="75px" height="75px" class="light-logo" />
                             {{-- <img src="{{ asset('matrix/assets/images/logo-icon.png') }}" alt="homepage" class="light-logo" /> --}}
-                            <font color="#FFFFFF"><h1>HIMMEL</h1></font>
+                            <font color="#FFFFFF" size="+3">HIMMEL</font>
                            
                         </b>
                         <!--End Logo icon -->
                          <!-- Logo text -->
                         <span class="logo-text">
                              <!-- dark Logo text -->
-                             {{-- <img src="{{ asset('matrix/assets/images/logo-text.png') }}" alt="homepage" class="light-logo" /> --}}
+                             {{-- <img src="{{ asset('logos/HIMMEL-02.png') }}" width="20%" height="20%" alt="homepage" class="light-logo" /> --}}
                             
                         </span>
                         <!-- Logo icon -->
