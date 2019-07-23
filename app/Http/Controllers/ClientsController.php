@@ -22,7 +22,7 @@ class ClientsController extends Controller
         }
         
         $cont=count($clients);
-
+        
         return view('admin.clients.index',compact('clients','cont'));
     }
 
