@@ -33,7 +33,7 @@ class ProductsRequest extends FormRequest
         ];
     }
 
-    public function mesagges()
+    public function messages()
     {
         return [
             'name.required' => 'El Nombre del producto es obligatorio',

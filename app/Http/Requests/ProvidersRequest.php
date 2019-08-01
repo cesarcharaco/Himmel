@@ -31,7 +31,7 @@ class ProvidersRequest extends FormRequest
         ];
     }
 
-    public function mesagges()
+    public function messages()
     {
         return [
             'business_name.required' => 'El NOmbre de la Empresa es obligatorio',

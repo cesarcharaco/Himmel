@@ -30,7 +30,7 @@ class ClientsRequest extends FormRequest
         ];
     }
 
-    public function mesaages()
+    public function messages()
     {
         return [
             'name.required' => 'El Nombre del Cliente no debe estar vacío',
