@@ -72,7 +72,7 @@
                         <div class="row mb-3">
                             <div class="col-lg-4">
                                 <label for="price">Precio:</label>
-                                <input type="text" class="form-control" placeholder="Precio" name="price" id="price" value="{{ old('price') }}">
+                                <input type="text" class="form-control" placeholder="Precio" name="price" id="price" maxlength="18" value="{{ old('price') }}">
                             </div>
                             <div class="col-lg-4">
                                 <label for="stock_min">Stock mínimo:</label>
@@ -86,7 +86,7 @@
                         @if(\Auth::getUser()->user_type=="Admin")
                         <div class="row">
                             <div class="col">
-                                <label for="provider_id">Usuarios</label>
+                                <label for="usuarios">Usuarios</label>
                                 <div class="form-group">
                                     <select name="user_id" id="user_id" class="select2 form-control m-t-15">
                                         <option value="">Seleccione un Usuario</option>
@@ -191,7 +191,7 @@ function getVal (element) {
                 for (var i = 0; i < data.length ; i++) 
                 {  
                     $("#provider_id").removeAttr('disabled');
-                    $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].business_name +'|' + data[i].letter +'-' + data[i].rif +'</option>');
+                    $("#provider_id").append('<option value="'+ data[i].id + '">' + data[i].business_name +'|'+ data[i].rut +'</option>');
                 }
 
             }else{

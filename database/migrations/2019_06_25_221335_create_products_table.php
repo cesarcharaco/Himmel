@@ -17,11 +17,11 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('characteriscs')->nullable();
-            $table->integer('existence');
+            $table->bigInteger('existence');
             $table->enum('unity',['Caja','Bulto','Saco','M3','Resma','Paquete','kilo','Barril','Litros','Individual']);
-            $table->float('price');
-            $table->integer('stock_min');
-            $table->integer('stock_max');
+            $table->bigInteger('price');
+            $table->bigInteger('stock_min');
+            $table->bigInteger('stock_max');
             $table->unsignedBigInteger('user_id');
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
