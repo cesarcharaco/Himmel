@@ -196,7 +196,7 @@ class PurchaseOrderController extends Controller
         $purchase->status="Aprobada";
         $purchase->save();
         Mail::to($purchase->send_email)->send(new Adjuntar($purchase->id)); 
-
+        Mail::to($purchase->providers->email)->send(new Adjuntar($purchase->id));
         flash('<i class="icon-circle-check"></i> Orden de Compra APROBADA exitosamente y enviada al correo electrónico!')->success()->important();
             return redirect()->to('purchaseorders');
 

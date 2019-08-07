@@ -126,8 +126,8 @@
                                 <input type="text" class="form-control" placeholder="Ej: Todo Bien" name="comments" id="comments" value="{{ old('comments') }}">
                             </div>
                             <div class="col-lg-4">
-                                <label for="enviar"> Enviar a:</label>
-                                <input type="email" class="form-control" name="send_email" id="send_email" placeholder="Ej: miproveedor@gmail.com" value="{{ old('send_email') }}">
+                                <label for="enviar"> <b style="color:red;">*</b> Enviar a:</label>
+                                <input type="email" class="form-control" name="send_email" id="send_email" placeholder="Ej: miproveedor@gmail.com" required="required" value="{{ old('send_email') }}">
                             </div>
                         </div>
                         

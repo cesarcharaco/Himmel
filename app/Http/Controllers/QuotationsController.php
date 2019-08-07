@@ -118,7 +118,7 @@ class QuotationsController extends Controller
             $quotation->delivery_term=$request->delivery_term;
             $quotation->way_pay=$request->way_pay;
             $quotation->coin=$request->coin;
-            $quotation->addressed_to=$request->addressed_to;
+            $quotation->address_to=$request->address_to;
             $quotation->email_comments=$request->email_comments;
             $quotation->save();
             
