@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logos/HIMMEL-01.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logos/HIMMEL(ICO).png') }}">
     <title>Himmel</title>
     <!-- Custom CSS -->
     <link href="{{ asset('matrix/dist/css/style.min.css') }}" rel="stylesheet">

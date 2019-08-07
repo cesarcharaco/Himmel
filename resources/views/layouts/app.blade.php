@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en">
 <head>
     @include('layouts.meta')
-
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logos/HIMMEL(ICO).png') }}">
     @yield('title')
 
     @include('layouts.css')
